@@ -1,4 +1,4 @@
-#include "imagecontroller.h"
+    #include "imagecontroller.h"
 
 
 QImage * ImageController::DataToQImage( int width, int height, unsigned short * data )

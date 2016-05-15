@@ -5,9 +5,16 @@
 
 Image::Image(const char *fichier)
 {
-    //LecteurPGM * lecteur = new LecteurPGM();
     im = IO::getImage(fichier, height, width);
 }
+
+Image::Image(QString fichier)
+{
+    std::string s = fichier.toStdString();
+    const char * c = s.c_str();
+    im = IO::getImage(c, height, width);
+}
+
 
 Image::Image(unsigned short *data, int w, int h)
 {
@@ -40,7 +47,7 @@ int Image::getWidth()
 char Image::getCharPixel(int x, int y)
 {
     if(y < width && x < height)
-        return (char) 256 -  ((im[x * width + y] % 1024) / 4);
+        return (char) ((im[x * width + y] % 1024) / 4);
     else
         return 0;
 }

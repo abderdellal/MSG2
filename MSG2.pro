@@ -26,7 +26,10 @@ SOURCES += main.cpp\
     views/MyWidgets/imagesselectwidget.cpp \
     controllers/multicanalcontroller.cpp \
     views/decoupeimage.cpp \
-    views/MyWidgets/labeldecoupe.cpp
+    views/MyWidgets/labeldecoupe.cpp \
+    views/unicanaldisplay.cpp \
+    views/MyWidgets/scrollreddotlabel.cpp \
+    db.cpp
 
 HEADERS  += mainwindow.h \
     io.h \
@@ -43,7 +46,10 @@ HEADERS  += mainwindow.h \
     views/MyWidgets/imagesselectwidget.h \
     controllers/multicanalcontroller.h \
     views/decoupeimage.h \
-    views/MyWidgets/labeldecoupe.h
+    views/MyWidgets/labeldecoupe.h \
+    views/unicanaldisplay.h \
+    views/MyWidgets/scrollreddotlabel.h \
+    db.h
 
 FORMS    += mainwindow.ui
 

@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
+enum Mode{uni, multi};
 
 namespace Ui {
 class MainWindow;
@@ -13,10 +17,20 @@ class MainWindow : public QMainWindow
     
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void clearCentralWidget();
     ~MainWindow();
     
 private:
     Ui::MainWindow *ui;
+    QVBoxLayout * layout;
+    Mode mode;
+
+
+signals:
+
+public slots:
+    void uniCanalMode();
+    void multiCanalMode();
 };
 
 #endif // MAINWINDOW_H

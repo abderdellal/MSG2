@@ -12,16 +12,22 @@ class RedDotLabel : public QLabel
 public:
     explicit RedDotLabel(QWidget *parent = 0);
     RedDotLabel(int w, int h, QWidget *parent = 0);
-    void setpixmap(QPixmap * p);
+    QPixmap * getPixmap();
+    void setPixmap(QPixmap * p);
     void setX(int i);
     void setY(int i);
     void setDrawing(bool b);
+    void setWidth(int);
+    void setHeight (int);
+
 
 private:
     QPixmap * pixmap;
     bool drawing;
     int x;
     int y;
+    int w; //width
+    int h; //height
 
 protected:
     void mouseReleaseEvent(QMouseEvent * event);

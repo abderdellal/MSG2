@@ -44,7 +44,6 @@ void MultiCanalDisplay::selectFolder(QString folder, QString finFichier)
 using namespace std;
 void MultiCanalDisplay::afficherImage()
 {
-
     foreach(CanalDisplay * display, widgetsList)
     {
         Glayout->removeWidget(display);

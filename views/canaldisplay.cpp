@@ -2,6 +2,7 @@
 #include "imagecontroller.h"
 #include<QHBoxLayout>
 #include<QVBoxLayout>
+#include<QDebug>
 
 CanalDisplay::CanalDisplay(QString CANAL, Image * img, QWidget *parent):
     QWidget(parent)
@@ -30,6 +31,14 @@ CanalDisplay::CanalDisplay(QString CANAL, Image * img, QWidget *parent):
     Vlayout->addWidget(labelImage);
     Vlayout->addLayout(Hlayout2);
     Display();
+    if(img->getWidth() != 3712 && img->getHeight() != 3712)
+    {
+        bouttonModifier->setVisible(false);
+    }
+    else
+    {
+        bouttonModifier->setVisible(true);
+    }
     QObject::connect(labelImage, SIGNAL(clicked(int,int)), this, SLOT(prevenireSignal(int,int)));
     QObject::connect(bouttonModifier, SIGNAL(released()), this, SLOT(modifImage()));
 
@@ -49,7 +58,7 @@ void CanalDisplay::Display()
 
     delete qimage;
 
-    labelImage->setpixmap(pixmap);
+    labelImage->setPixmap(pixmap);
     labelImage->repaint();
 }
 
@@ -74,7 +83,7 @@ void CanalDisplay::selectPixel(int ligne, int cologne)
 {
     int y = ((ligne * labelImage->geometry().height()) /image->getHeight() );
     int x =((cologne * labelImage->geometry().width()) /image->getWidth() );
-
+    qDebug() << image->getWidth();
     int color = image->getIntPixel(ligne, cologne);
 
     char s[100];

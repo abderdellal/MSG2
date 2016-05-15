@@ -3,9 +3,12 @@
 RedDotLabel::RedDotLabel(QWidget *parent) :
     QLabel(parent)
 {
+    pixmap = NULL;
     drawing = false;
     x = 0;
     y = 0;
+    w = 0;
+    h = 0;
 
     this->setScaledContents(true);
 }
@@ -18,11 +21,27 @@ RedDotLabel::RedDotLabel(int w, int h, QWidget *parent) :
     y = 0;
 
     this->setScaledContents(true);
+    this->w = w;
+    this->h = h;
     this->setMaximumWidth(w);
     this->setMaximumHeight(h);
 }
 
-void RedDotLabel::setpixmap(QPixmap * p)
+QPixmap * RedDotLabel::getPixmap()
+{
+    return pixmap;
+}
+
+void RedDotLabel::setHeight(int h)
+{
+    this->h = h;
+}
+void RedDotLabel::setWidth(int w)
+{
+    this->w = w;
+}
+
+void RedDotLabel::setPixmap(QPixmap * p)
 {
     pixmap = p;
     QLabel::setPixmap(*p);
@@ -30,8 +49,11 @@ void RedDotLabel::setpixmap(QPixmap * p)
 
 void RedDotLabel::RedDotLabel::resizeEvent(QResizeEvent *)
 {
-    QPixmap scaledPix = pixmap->scaled(400, 400,   Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    QLabel::setPixmap(scaledPix);
+    if(w != 0 && h != 0)
+    {
+        QPixmap scaledPix = pixmap->scaled(w, h,   Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QLabel::setPixmap(scaledPix);
+    }
 }
 
 void RedDotLabel::mouseReleaseEvent( QMouseEvent * event )

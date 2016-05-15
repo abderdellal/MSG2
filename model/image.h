@@ -9,6 +9,7 @@ class Image
 public:
     Image(const char *fichier);
     Image(unsigned short *data, int w, int h);
+    Image(QString fichier);
     ~Image();
     int getIntPixel(int x, int y);
     char getCharPixel(int x, int y);

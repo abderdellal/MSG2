@@ -17,6 +17,8 @@ LatLonWidget::LatLonWidget(QWidget *parent) :
 
     editLat->setMaximumWidth(55);
     editLon->setMaximumWidth(55);
+    editLat->setMinimumWidth(55);
+    editLon->setMinimumWidth(55);
 
     layout->addWidget(labelLat);
     layout->addWidget(editLat);

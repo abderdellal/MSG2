@@ -20,6 +20,8 @@ coordinateWidget::coordinateWidget(QWidget *parent) :
 
     editX->setMaximumWidth(40);
     editY->setMaximumWidth(40);
+    editX->setMinimumWidth(35);
+    editY->setMinimumWidth(35);
 
     layout->addWidget(labelX);
     layout->addWidget(editX);

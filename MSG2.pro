@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     views/MyWidgets/labeldecoupe.cpp \
     views/unicanaldisplay.cpp \
     views/MyWidgets/scrollreddotlabel.cpp \
-    db.cpp
+    db.cpp \
+    views/MyWidgets/communeselection.cpp
 
 HEADERS  += mainwindow.h \
     io.h \
@@ -49,7 +50,8 @@ HEADERS  += mainwindow.h \
     views/MyWidgets/labeldecoupe.h \
     views/unicanaldisplay.h \
     views/MyWidgets/scrollreddotlabel.h \
-    db.h
+    db.h \
+    views/MyWidgets/communeselection.h
 
 FORMS    += mainwindow.ui
 

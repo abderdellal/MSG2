@@ -1,5 +1,6 @@
 #include "unicanaldisplay.h"
 #include "imagecontroller.h"
+#include "db.h"
 #include <QGridLayout>
 #include <QFileDialog>
 
@@ -18,21 +19,21 @@ UniCanalDisplay::UniCanalDisplay(QWidget *parent) :
     editColor = new QLineEdit();
     editColor->setMaximumWidth(40);
     locationWidget = new LocationWidget();
+    communeSelection = new CommuneSelection();
+
     Hlayout->addWidget(bouttonOuvrir);
     Hlayout->addWidget(labelFichier);
-    Hlayout->addSpacing(30);
     Hlayout->addWidget(bouttonZoumIn);
     Hlayout->addWidget(bouttonZoumOut);
     Hlayout->addWidget(labelColor);
     Hlayout->addWidget(editColor);
     Hlayout->addWidget(locationWidget);
-    Hlayout->addSpacing(30);
+    Hlayout->addWidget(communeSelection);
     Hlayout->setMargin(0);
     Vlayout->addLayout(Hlayout);
     Vlayout->setMargin(0);
 
     QObject::connect(bouttonOuvrir, SIGNAL(clicked()), this, SLOT(OuvrirFichier()));
-
     this->setLayout(Vlayout);
 }
 
@@ -62,6 +63,7 @@ void UniCanalDisplay::OuvrirFichier()
     QObject::connect(bouttonZoumOut, SIGNAL(clicked()), area, SLOT(zoomOut()));
     QObject::connect(area, SIGNAL(clicked(int,int)), this, SLOT(updateCoordonate(int,int)));
     QObject::connect(locationWidget, SIGNAL(coordinateChanged(int,int)), this, SLOT(updateCoordonate(int,int)));
+    QObject::connect(communeSelection, SIGNAL(communeSelected(double,double)), locationWidget, SLOT(ChangeLatLong(double,double)));
     }
 }
 

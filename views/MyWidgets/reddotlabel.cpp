@@ -1,10 +1,12 @@
 #include "reddotlabel.h"
+#include "latlong.h"
 
 RedDotLabel::RedDotLabel(QWidget *parent) :
     QLabel(parent)
 {
     pixmap = NULL;
     drawing = false;
+    drawingAll = false;
     x = 0;
     y = 0;
     w = 0;
@@ -17,6 +19,7 @@ RedDotLabel::RedDotLabel(int w, int h, QWidget *parent) :
     QLabel(parent)
 {
     drawing = false;
+    drawingAll = false;
     x = 0;
     y = 0;
 
@@ -73,6 +76,30 @@ void RedDotLabel::paintEvent(QPaintEvent *e) {
         QPainter qp(this);
         drawPoint(&qp);
     }
+    if(drawingAll)
+    {
+        QPainter qp(this);
+        drawAllPoints(&qp);
+    }
+}
+
+void RedDotLabel::drawAllPoints(QPainter * qp)
+{
+    foreach(LatLonPair p, pointsList)
+    {
+        double lat = p.lat;
+        double lon = p.lon;
+        int colomn = 0;
+        int line = 0;
+        LatLong::Getlinepixel(lat, lon, &line, &colomn);
+        line -= 1;
+        colomn -= 1;
+        double factor = ((double) this->geometry().height()) /this->getPixmap()->height();
+        factor = factor - 1;
+        int y = ((line * this->geometry().height()) /this->getPixmap()->height() ) + factor;
+        int x =((colomn * this->geometry().width()) /this->getPixmap()->width() ) + factor;
+        drawPoint(qp, x, y);
+    }
 }
 
 void RedDotLabel::drawPoint(QPainter *qp) {
@@ -80,6 +107,13 @@ void RedDotLabel::drawPoint(QPainter *qp) {
   QPen pen(Qt::red, 3, Qt::SolidLine);
   qp->setPen(pen);
   qp->drawPoint(x, y);
+}
+
+void RedDotLabel::drawPoint(QPainter *qp, int xx, int yy) {
+
+  QPen pen(Qt::red, 3, Qt::SolidLine);
+  qp->setPen(pen);
+  qp->drawPoint(xx, yy);
 }
 
 void RedDotLabel::setX(int i)
@@ -97,3 +131,18 @@ void RedDotLabel::setDrawing(bool b)
     drawing = b;
 }
 
+
+void RedDotLabel::displayAll()
+{
+    if(drawingAll == false)
+    {
+        drawingAll = true;
+        pointsList = DB::getAllLatLon();
+    }
+    else
+    {
+        drawingAll = false;
+    }
+    update();
+
+}

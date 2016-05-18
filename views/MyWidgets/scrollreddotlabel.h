@@ -34,6 +34,7 @@ public slots:
     void normalSize();
     void emitClick(int x, int y);
     void updateCoordinate(int cologne, int ligne);
+    void displayAll();
 };
 
 #endif // SCROLLREDDOTLABEL_H

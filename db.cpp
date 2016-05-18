@@ -1,9 +1,5 @@
 #include "db.h"
-#include <QDebug>
-#include <QSqlError>
-#include <QStringList>
-#include <QSqlQuery>
-#include <QSqlRecord>
+
 DB::DB()
 {
 }
@@ -61,4 +57,18 @@ void DB::getLatLon(QString commune, QString wilaya, double &lat, double &lon)
     query.next();
     lat = query.value(0).toDouble();
     lon = query.value(1).toDouble();
+}
+
+std::list<LatLonPair> DB::getAllLatLon()
+{
+    std::list<LatLonPair> list;
+    QSqlQuery query("SELECT DISTINCT Latitude, Longitude FROM communes");
+    while (query.next())
+    {
+       double lat = query.value(0).toDouble();
+       double lon = query.value(1).toDouble();
+       LatLonPair p(lat,lon);
+       list.push_back(p);
+    }
+    return list;
 }

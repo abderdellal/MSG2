@@ -1,4 +1,5 @@
 #include "scrollreddotlabel.h"
+#include "db.h"
 #include <QHBoxLayout>
 #include <QDebug>
 
@@ -37,8 +38,10 @@ void ScrollRedDotLabel::emitClick(int x, int y)
 
 void ScrollRedDotLabel::updateCoordinate(int cologne, int ligne)
 {
-    int y = ((ligne * imageLabel->geometry().height()) /imageLabel->getPixmap()->height() );
-    int x =((cologne * imageLabel->geometry().width()) /imageLabel->getPixmap()->width() );
+    double factor = ((double)imageLabel->geometry().height()) /imageLabel->getPixmap()->height();
+    factor = factor - 1;
+    int y = ((ligne * imageLabel->geometry().height()) /imageLabel->getPixmap()->height() + factor);
+    int x =((cologne * imageLabel->geometry().width()) /imageLabel->getPixmap()->width() +factor);
 
     imageLabel->setX(x);
     imageLabel->setY(y);
@@ -89,4 +92,9 @@ void ScrollRedDotLabel::adjustScrollBar(QScrollBar *scrollBar, double factor)
 {
     scrollBar->setValue(int(factor * scrollBar->value()
                             + ((factor - 1) * scrollBar->pageStep()/2)));
+}
+
+void ScrollRedDotLabel::displayAll()
+{
+    imageLabel->displayAll();
 }

@@ -26,11 +26,13 @@ private:
     QPushButton * bouttonOuvrir;
     QPushButton * bouttonZoumIn;
     QPushButton * bouttonZoumOut;
+    QPushButton * bouttonNormalSize;
     QLabel * labelFichier;
     QLineEdit * editColor;
     QLabel * labelColor;
     LocationWidget * locationWidget;
     CommuneSelection * communeSelection;
+    QPushButton * bouttonDisplayAll;
     //QLabel * labelWilaya;
     //QComboBox * comboWilaya;
     //QLabel * labelCommune;

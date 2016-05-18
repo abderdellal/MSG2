@@ -5,6 +5,7 @@
 #include "imagesselectwidget.h"
 #include "image.h"
 #include "canaldisplay.h"
+#include "communeselection.h"
 #include <QWidget>
 #include <QGridLayout>
 #include <QScrollArea>
@@ -27,6 +28,7 @@ private:
 
     LocationWidget * locationWidget;
     ImagesSelectWidget * selectionWidget;
+    CommuneSelection * communeSelection;
     QGridLayout * Glayout;
     QWidget * centralWidget;
     QScrollArea * area;

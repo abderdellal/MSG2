@@ -1,6 +1,6 @@
 #ifndef REDDOTLABEL_H
 #define REDDOTLABEL_H
-
+#include "db.h"
 #include <QLabel>
 #include <QPainter>
 #include <QMouseEvent>
@@ -24,19 +24,28 @@ public:
 private:
     QPixmap * pixmap;
     bool drawing;
+    bool drawingAll;
     int x;
     int y;
     int w; //width
     int h; //height
+    std::list<LatLonPair> pointsList;
+
+    void drawAllPoints(QPainter *qp);
 
 protected:
     void mouseReleaseEvent(QMouseEvent * event);
     void paintEvent(QPaintEvent *event);
     void drawPoint(QPainter *qp);
+    void drawPoint(QPainter *qp, int xx, int yy);
     void resizeEvent(QResizeEvent *);
+
 
 signals:
     void clicked(int x, int y);
+
+public slots:
+        void displayAll();
     
 };
 

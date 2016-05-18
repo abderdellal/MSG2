@@ -12,13 +12,18 @@ MultiCanalDisplay::MultiCanalDisplay(QWidget *parent) :
 {
     QVBoxLayout *Vlayout = new QVBoxLayout();
     QHBoxLayout * Hlayout = new QHBoxLayout();
+    QHBoxLayout * Hlayout2 = new QHBoxLayout();
+
     Glayout = new QGridLayout();
 
     locationWidget = new LocationWidget();
     selectionWidget = new ImagesSelectWidget();
+    communeSelection = new CommuneSelection();
     Hlayout->addWidget(selectionWidget);
-    Hlayout->addWidget(locationWidget);
-
+    Hlayout2->addWidget(locationWidget);
+    Hlayout2->addWidget(communeSelection);
+    Hlayout->addStretch();
+    Hlayout2->addStretch();
 
     centralWidget = new QWidget();
     area = new QScrollArea();
@@ -27,6 +32,7 @@ MultiCanalDisplay::MultiCanalDisplay(QWidget *parent) :
     centralWidget->setLayout(Glayout);
 
     Vlayout->addLayout(Hlayout);
+    Vlayout->addLayout(Hlayout2);
     Vlayout->addWidget(area);
 
     this->setLayout(Vlayout);
@@ -66,6 +72,7 @@ void MultiCanalDisplay::afficherImage()
         QObject::connect(display, SIGNAL(PixelSelected(int,int)), this, SLOT(ChangeCoordinate(int,int)));
         QObject::connect(display, SIGNAL(decouper(int,int,int,int)), this, SLOT(decoupeImages(int,int,int,int)));
         QObject::connect(locationWidget, SIGNAL(coordinateChanged(int,int)), this, SLOT(ChangeCoordinate(int,int)));
+        QObject::connect(communeSelection, SIGNAL(communeSelected(double,double)), locationWidget, SLOT(ChangeLatLong(double,double)));
         repaint();
         j++;
     }

@@ -19,7 +19,9 @@ class UniCanalDisplay : public QWidget
     Q_OBJECT
 public:
     explicit UniCanalDisplay(QWidget *parent = 0);
+    UniCanalDisplay(QString fichier, QWidget *parent = 0);
     ~UniCanalDisplay();
+    void prepareInterface();
 
 private:
     QVBoxLayout * Vlayout;
@@ -33,24 +35,17 @@ private:
     LocationWidget * locationWidget;
     CommuneSelection * communeSelection;
     QPushButton * bouttonDisplayAll;
-    //QLabel * labelWilaya;
-    //QComboBox * comboWilaya;
-    //QLabel * labelCommune;
-    //QComboBox * comboCommune;
-    //QPushButton * communeBoutton;
+
     ScrollRedDotLabel * area;
     Image * img;
     QPixmap * pixmap;
-
-    //void populateComboWilaya();
     
 signals:
     
 public slots:
     void OuvrirFichier();
     void updateCoordonate(int colomn ,int line);
-    //void populateComboCommune(QString wilaya);
-    //void selectCommune();
+    void displayImage(QString fichier);
 };
 
 #endif // UNICANALDISPLAY_H

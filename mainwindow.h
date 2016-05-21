@@ -5,7 +5,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-enum Mode{uni, multi};
+enum Mode{uni, multi, Table};
 
 namespace Ui {
 class MainWindow;
@@ -30,7 +30,9 @@ signals:
 
 public slots:
     void uniCanalMode();
+    void uniCanalMode(QString fichier);
     void multiCanalMode();
+    void imageTableView();
 };
 
 #endif // MAINWINDOW_H

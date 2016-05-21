@@ -29,6 +29,7 @@
     </property>
     <addaction name="actionUni_canal"/>
     <addaction name="actionMulticanal"/>
+    <addaction name="actionImages_enregistr_s"/>
    </widget>
    <addaction name="menuFichier"/>
   </widget>
@@ -40,6 +41,11 @@
   <action name="actionMulticanal">
    <property name="text">
     <string>Multicanal</string>
+   </property>
+  </action>
+  <action name="actionImages_enregistr_s">
+   <property name="text">
+    <string>images enregistrés</string>
    </property>
   </action>
  </widget>

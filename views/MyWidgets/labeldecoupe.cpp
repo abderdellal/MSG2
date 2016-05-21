@@ -94,3 +94,12 @@ void LabelDecoupe::setPointY2(int n)
     point2_y = n;
 }
 
+void LabelDecoupe::setFirstClick(bool b)
+{
+    firstClick = b;
+}
+
+void LabelDecoupe::setSecondClick(bool b)
+{
+    secondClick = b;
+}

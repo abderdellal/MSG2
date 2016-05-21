@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QDir>
+#include <QInputDialog>
 
 MultiCanalDisplay::MultiCanalDisplay(QWidget *parent) :
     QWidget(parent)
@@ -94,33 +95,50 @@ void MultiCanalDisplay::propagerSignal(int x, int y)
 
 void MultiCanalDisplay::decoupeImages(int x1, int y1, int x2, int y2)
 {
-    std::map<QString, Image *>::iterator it;
-    for(it = imagesMap.begin() ; it != imagesMap.end() ; ++it)
+    bool ok = false;
+    QString nomDecoupage = QInputDialog::getText(this, "Decoupage", "entrez le nom du Découpage",QLineEdit::Normal , QString(), &ok);
+    if(ok)
     {
-        QString type = it->first;
-        Image * img = it->second;
-        QString filePath = "";
-        filePath.append(".\\decoupe\\");
-        filePath.append(dossier.section('\\',-1));
-        QDir dir(filePath);
-        if (!dir.exists()) {
-            dir.mkpath(".");
-        }
-        filePath.append("\\");
-        filePath.append(type);
-        filePath.append(dossier.section('\\',-1));
-        filePath.append(finF);
         int minX = (x1>x2)?x2:x1;
         int maxX = (x1>x2)?x1:x2;
         int minY = (y1>y2)?y2:y1;
         int maxY = (y1>y2)?y1:y2;
         int w = maxX - minX;
         int h = maxY - minY;
-        char c[50];
-        sprintf(c, "(%d-%d-%d-%d).pgm", minX, minY, w, h);
-        filePath.append(c);
-        Image * newImg = img->crop(x1, y1, x2, y2);
-        newImg->save(filePath);
-        delete newImg;
+
+        QString heure = finF.left(2);
+        QString quartDheur = finF.right(2);
+        QString jour =  dossier.section('\\',-1);
+
+        int decoupageId = DB::saveDecoupage(nomDecoupage, minX, minY, w, h, jour, heure, quartDheur);
+
+        std::map<QString, Image *>::iterator it;
+        for(it = imagesMap.begin() ; it != imagesMap.end() ; ++it)
+        {
+            QString type = it->first;
+            Image * img = it->second;
+            QString filePath = "";
+            filePath.append(".\\decoupages\\");
+            filePath.append(dossier.section('\\',-1));
+
+            char c[50];
+            sprintf(c, "\\decoupage(%d-%d-%d-%d)", minX, minY, w, h);
+            filePath.append(c);
+
+            QDir dir(filePath);
+            if (!dir.exists()) {
+                dir.mkpath(".");
+            }
+            filePath.append("\\");
+            filePath.append(type);
+            filePath.append(dossier.section('\\',-1));
+            filePath.append(finF);
+            filePath.append(".pgm");
+
+            Image * newImg = img->crop(x1, y1, x2, y2);
+            newImg->save(filePath);
+            DB::saveImage(decoupageId, type, filePath);
+            delete newImg;
+        }
     }
 }

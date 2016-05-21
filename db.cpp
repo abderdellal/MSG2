@@ -7,7 +7,6 @@ QSqlDatabase DB::db;
 
 bool DB::connect()
 {
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("MSG.db");
     if (db.open()) {
@@ -71,4 +70,37 @@ std::list<LatLonPair> DB::getAllLatLon()
        list.push_back(p);
     }
     return list;
+}
+
+int DB::saveDecoupage(QString nom, int debX, int debY, int width, int height, QString jour, QString heure, QString quartDheur)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO decoupages (nom, x, y, width, height, jour, heure, quartDheur ) VALUES (:nom, :x, :y, :width, :height, :jour, :heure, :quartDheur)");
+    query.bindValue(0, nom);
+    query.bindValue(1, debX);
+    query.bindValue(2, debY);
+    query.bindValue(3, width);
+    query.bindValue(4, height);
+    query.bindValue(5, jour);
+    query.bindValue(6, heure);
+    query.bindValue(7, quartDheur);
+    query.exec();
+    int id = query.lastInsertId().value<int>();
+    return id;
+}
+
+bool DB::saveImage(int decoupageId, QString canal, QString chemin)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO images (decoupageId, canal, chemin) VALUES (:decoupageId, :canal, :chemin)");
+    query.bindValue(":decoupageId", decoupageId);
+    query.bindValue(":canal", canal);
+    query.bindValue(":chemin", chemin);
+    bool ok = query.exec();
+    return ok;
+}
+
+QSqlDatabase DB::getDB()
+{
+    return db;
 }

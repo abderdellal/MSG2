@@ -30,7 +30,9 @@ SOURCES += main.cpp\
     views/unicanaldisplay.cpp \
     views/MyWidgets/scrollreddotlabel.cpp \
     db.cpp \
-    views/MyWidgets/communeselection.cpp
+    views/MyWidgets/communeselection.cpp \
+    model/decoupage.cpp \
+    views/dbimagesview.cpp
 
 HEADERS  += mainwindow.h \
     io.h \
@@ -51,7 +53,9 @@ HEADERS  += mainwindow.h \
     views/unicanaldisplay.h \
     views/MyWidgets/scrollreddotlabel.h \
     db.h \
-    views/MyWidgets/communeselection.h
+    views/MyWidgets/communeselection.h \
+    model/decoupage.h \
+    views/dbimagesview.h
 
 FORMS    += mainwindow.ui
 

@@ -14,17 +14,22 @@ DecoupeImage::DecoupeImage(QWidget *parent) :
     QVBoxLayout * Vlayout = new QVBoxLayout();
 
     labelDecoupe = new LabelDecoupe();
+    bouttonDefault = new QPushButton("Decoupage par Default");
+    bouttonDefault->setMaximumWidth(200);
     locationwidget1 = new LocationWidget();
     locationwidget2 = new LocationWidget();
     bouttonDecouper = new QPushButton("découper");
+    bouttonDecouper->setMaximumWidth(200);
     labelPoint1 = new QLabel("Point 1");
     labelPoint2 = new QLabel("Point 2");
 
+    Vlayout->addWidget(bouttonDefault);
     Vlayout->addWidget(labelPoint1);
     Vlayout->addWidget(locationwidget1);
     Vlayout->addWidget(labelPoint2);
     Vlayout->addWidget(locationwidget2);
     Vlayout->addWidget(bouttonDecouper);
+    Vlayout->addStretch();
 
     Hlayout->addWidget(labelDecoupe);
     Hlayout->addLayout(Vlayout);
@@ -36,6 +41,7 @@ DecoupeImage::DecoupeImage(QWidget *parent) :
     QObject::connect(labelDecoupe, SIGNAL(click2(int,int)), this, SLOT(setPoint2(int,int)));
     QObject::connect(labelDecoupe, SIGNAL(cleared()), this, SLOT(clear()));
     QObject::connect(bouttonDecouper, SIGNAL(clicked()), this, SLOT(decoup()));
+    QObject::connect(bouttonDefault, SIGNAL(clicked()), this, SLOT(decoupageParDefault()));
 
     QObject::connect(locationwidget1, SIGNAL(coordinateChanged(int,int)), this, SLOT(changeCoordinate1(int,int)));
     QObject::connect(locationwidget2, SIGNAL(coordinateChanged(int,int)), this, SLOT(changeCoordinate2(int,int)));
@@ -93,6 +99,8 @@ void DecoupeImage::changeCoordinate1(int x, int y)
 
     labelDecoupe->setPointX1(x1);
     labelDecoupe->setPointY1(y1);
+    labelDecoupe->setFirstClick(true);
+    labelDecoupe->setSecondClick(true);
     labelDecoupe->update();
 }
 
@@ -103,5 +111,15 @@ void DecoupeImage::changeCoordinate2(int x, int y)
 
     labelDecoupe->setPointX2(x1);
     labelDecoupe->setPointY2(y1);
+    labelDecoupe->setFirstClick(true);
+    labelDecoupe->setSecondClick(true);
     labelDecoupe->update();
+}
+
+void DecoupeImage::decoupageParDefault()
+{
+    changeCoordinate1(1540, 610);
+    changeCoordinate2(2240,1310);
+    setPoint1(1540 - 1, 610 - 1);
+    setPoint2(2240 - 1,1310 - 1);
 }

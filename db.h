@@ -4,6 +4,7 @@
 #include <QSqlDatabase>
 #include <QStringList>
 #include <QDebug>
+#include <QString>
 #include <QSqlError>
 #include <QStringList>
 #include <QSqlQuery>
@@ -31,6 +32,9 @@ public:
     static QStringList getWilayas();
     static void getLatLon(QString commune, QString wilaya, double &lat, double &lon);
     static std::list<LatLonPair> getAllLatLon();
+    static int saveDecoupage(QString nom, int debX, int debY, int width, int height, QString jour, QString heure, QString quartDheur);
+    static bool saveImage(int decoupageID, QString canal, QString chemin);
+    QSqlDatabase getDB();
 
 private:
     static QSqlDatabase db;

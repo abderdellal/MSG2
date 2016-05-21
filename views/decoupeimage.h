@@ -19,7 +19,7 @@ public:
 
 private:
     QPixmap * pixmap;
-
+    QPushButton * bouttonDefault;
     LocationWidget * locationwidget1;
     LocationWidget * locationwidget2;
     LabelDecoupe * labelDecoupe;
@@ -43,6 +43,7 @@ public slots:
 
     void changeCoordinate1(int x, int y);
     void changeCoordinate2(int x, int y);
+    void decoupageParDefault();
     
 };
 

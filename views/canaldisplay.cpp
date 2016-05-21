@@ -83,7 +83,6 @@ void CanalDisplay::selectPixel(int ligne, int cologne)
 {
     int y = ((ligne * labelImage->geometry().height()) /image->getHeight() );
     int x =((cologne * labelImage->geometry().width()) /image->getWidth() );
-    qDebug() << image->getWidth();
     int color = image->getIntPixel(ligne, cologne);
 
     char s[100];

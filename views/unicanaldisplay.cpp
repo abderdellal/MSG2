@@ -7,6 +7,24 @@
 UniCanalDisplay::UniCanalDisplay(QWidget *parent) :
     QWidget(parent)
 {
+    prepareInterface();
+}
+
+UniCanalDisplay::UniCanalDisplay(QString fichier, QWidget *parent):
+    QWidget(parent)
+{
+    prepareInterface();
+    displayImage(fichier);
+}
+
+UniCanalDisplay::~UniCanalDisplay()
+{
+    if(img) delete img;
+    if(pixmap)  delete pixmap;
+}
+
+void UniCanalDisplay::prepareInterface()
+{
     img = NULL;
     pixmap = NULL;
     area = NULL;
@@ -54,15 +72,14 @@ UniCanalDisplay::UniCanalDisplay(QWidget *parent) :
     this->setLayout(Vlayout);
 }
 
-UniCanalDisplay::~UniCanalDisplay()
-{
-    if(img) delete img;
-    if(pixmap)  delete pixmap;
-}
-
 void UniCanalDisplay::OuvrirFichier()
 {
     QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", ".\\images");
+    displayImage(fichier);
+}
+
+void UniCanalDisplay::displayImage(QString fichier)
+{
     if (!fichier.isNull())
     {
         if(area)
@@ -70,29 +87,29 @@ void UniCanalDisplay::OuvrirFichier()
             delete area;
         }
 
-    if(img) delete img;
-    if(pixmap)  delete pixmap;
+        if(img) delete img;
+        if(pixmap)  delete pixmap;
 
-    labelFichier->setText(fichier.section("/",-1));
-    img = new Image(fichier);
-    QImage * qimage = ImageController::getQImage(img);
-    pixmap = new QPixmap();
-    pixmap->convertFromImage(*qimage);
-    delete qimage;
-    area = new ScrollRedDotLabel();
-    area->setPixmap(pixmap);
-    Vlayout->addWidget(area);
-    bouttonZoumIn->setVisible(true);
-    bouttonZoumOut->setVisible(true);
-    bouttonNormalSize->setVisible(true);
-    bouttonDisplayAll->setVisible(true);
-    QObject::connect(bouttonZoumIn, SIGNAL(clicked()), area, SLOT(zoomIn()));
-    QObject::connect(bouttonZoumOut, SIGNAL(clicked()), area, SLOT(zoomOut()));
-    QObject::connect(bouttonNormalSize,SIGNAL(clicked()), area, SLOT(normalSize()));
-    QObject::connect(area, SIGNAL(clicked(int,int)), this, SLOT(updateCoordonate(int,int)));
-    QObject::connect(locationWidget, SIGNAL(coordinateChanged(int,int)), this, SLOT(updateCoordonate(int,int)));
-    QObject::connect(communeSelection, SIGNAL(communeSelected(double,double)), locationWidget, SLOT(ChangeLatLong(double,double)));
-    QObject::connect(bouttonDisplayAll, SIGNAL(clicked()), area, SLOT(displayAll()));
+        labelFichier->setText(fichier.section("/",-1));
+        img = new Image(fichier);
+        QImage * qimage = ImageController::getQImage(img);
+        pixmap = new QPixmap();
+        pixmap->convertFromImage(*qimage);
+        delete qimage;
+        area = new ScrollRedDotLabel();
+        area->setPixmap(pixmap);
+        Vlayout->addWidget(area);
+        bouttonZoumIn->setVisible(true);
+        bouttonZoumOut->setVisible(true);
+        bouttonNormalSize->setVisible(true);
+        bouttonDisplayAll->setVisible(true);
+        QObject::connect(bouttonZoumIn, SIGNAL(clicked()), area, SLOT(zoomIn()));
+        QObject::connect(bouttonZoumOut, SIGNAL(clicked()), area, SLOT(zoomOut()));
+        QObject::connect(bouttonNormalSize,SIGNAL(clicked()), area, SLOT(normalSize()));
+        QObject::connect(area, SIGNAL(clicked(int,int)), this, SLOT(updateCoordonate(int,int)));
+        QObject::connect(locationWidget, SIGNAL(coordinateChanged(int,int)), this, SLOT(updateCoordonate(int,int)));
+        QObject::connect(communeSelection, SIGNAL(communeSelected(double,double)), locationWidget, SLOT(ChangeLatLong(double,double)));
+        QObject::connect(bouttonDisplayAll, SIGNAL(clicked()), area, SLOT(displayAll()));
     }
 }
 

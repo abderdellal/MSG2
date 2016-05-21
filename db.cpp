@@ -72,10 +72,10 @@ std::list<LatLonPair> DB::getAllLatLon()
     return list;
 }
 
-int DB::saveDecoupage(QString nom, int debX, int debY, int width, int height, QString jour, QString heure, QString quartDheur)
+int DB::saveDecoupage(QString nom, int debX, int debY, int width, int height, QString jour, QString heure, QString quartDheur, QString cheminDecoupage)
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO decoupages (nom, x, y, width, height, jour, heure, quartDheur ) VALUES (:nom, :x, :y, :width, :height, :jour, :heure, :quartDheur)");
+    query.prepare("INSERT INTO decoupages (nom, x, y, width, height, jour, heure, quartDheur, chemin ) VALUES (:nom, :x, :y, :width, :height, :jour, :heure, :quartDheur, :chemin)");
     query.bindValue(0, nom);
     query.bindValue(1, debX);
     query.bindValue(2, debY);
@@ -84,6 +84,7 @@ int DB::saveDecoupage(QString nom, int debX, int debY, int width, int height, QS
     query.bindValue(5, jour);
     query.bindValue(6, heure);
     query.bindValue(7, quartDheur);
+    query.bindValue(8, cheminDecoupage);
     query.exec();
     int id = query.lastInsertId().value<int>();
     return id;

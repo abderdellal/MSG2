@@ -7,12 +7,16 @@
 UniCanalDisplay::UniCanalDisplay(QWidget *parent) :
     QWidget(parent)
 {
+    debX = 0;
+    debY = 0;
     prepareInterface();
 }
 
 UniCanalDisplay::UniCanalDisplay(QString fichier, QWidget *parent):
     QWidget(parent)
 {
+    debX = 0;
+    debY = 0;
     prepareInterface();
     displayImage(fichier);
 }

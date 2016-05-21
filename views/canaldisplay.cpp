@@ -18,7 +18,7 @@ CanalDisplay::CanalDisplay(QString CANAL, Image * img, QWidget *parent):
     bouttonModifier = new QPushButton("Modifier");
     labelImage = new RedDotLabel();
     labelImage->setMaximumWidth(CanalDisplay::canalWidth);
-    labelImage->setMaximumHeight(CanalDisplay::canalHeight);
+    labelImage->setMaximumHeight((CanalDisplay::canalWidth * img->getHeight()) /img->getWidth());
     labelCouleur = new QLabel("Couleur");
     couleurEdit = new QLineEdit();
     couleurEdit->setMaximumWidth(50);

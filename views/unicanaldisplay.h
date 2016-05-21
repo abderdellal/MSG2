@@ -39,6 +39,9 @@ private:
     ScrollRedDotLabel * area;
     Image * img;
     QPixmap * pixmap;
+
+    int debX;
+    int debY;
     
 signals:
     

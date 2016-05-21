@@ -109,8 +109,14 @@ void MultiCanalDisplay::decoupeImages(int x1, int y1, int x2, int y2)
         QString heure = finF.left(2);
         QString quartDheur = finF.right(2);
         QString jour =  dossier.section('\\',-1);
+        QString cheminDecoupage;
+        char dossierDecoupage[50];
+        sprintf(dossierDecoupage, "\\decoupage(%d-%d-%d-%d)", minX, minY, w, h);
+        cheminDecoupage.append(".\\decoupages\\");
+        cheminDecoupage.append(dossier.section('\\',-1));
+        cheminDecoupage.append(dossierDecoupage);
 
-        int decoupageId = DB::saveDecoupage(nomDecoupage, minX, minY, w, h, jour, heure, quartDheur);
+        int decoupageId = DB::saveDecoupage(nomDecoupage, minX, minY, w, h, jour, heure, quartDheur, cheminDecoupage);
 
         std::map<QString, Image *>::iterator it;
         for(it = imagesMap.begin() ; it != imagesMap.end() ; ++it)
@@ -121,9 +127,7 @@ void MultiCanalDisplay::decoupeImages(int x1, int y1, int x2, int y2)
             filePath.append(".\\decoupages\\");
             filePath.append(dossier.section('\\',-1));
 
-            char c[50];
-            sprintf(c, "\\decoupage(%d-%d-%d-%d)", minX, minY, w, h);
-            filePath.append(c);
+            filePath.append(dossierDecoupage);
 
             QDir dir(filePath);
             if (!dir.exists()) {

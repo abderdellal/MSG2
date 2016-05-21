@@ -16,7 +16,7 @@ DbImagesView::DbImagesView(QWidget *parent) :
     Vlayout->addLayout(Hlayout);
     Vlayout->addWidget(myTableView);
 
-    myModel->setQuery("SELECT canal, chemin, nom, x, y, width, height, jour, heure, quartDheur, dateCreated, img.id  FROM decoupages dec, images img WHERE dec.id = img.decoupageID");
+    myModel->setQuery("SELECT canal, img.chemin, nom, x, y, width, height, jour, heure, quartDheur, dateCreated, img.id  FROM decoupages dec, images img WHERE dec.id = img.decoupageID");
     myModel->setHeaderData(0, Qt::Horizontal, "Canal");
     myModel->setHeaderData(1, Qt::Horizontal, "Chemin");
     myModel->setHeaderData(2, Qt::Horizontal, "Nom decoupage");

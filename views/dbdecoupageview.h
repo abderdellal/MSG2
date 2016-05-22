@@ -12,7 +12,7 @@
 #include <QSqlQueryModel>
 
 class DbDecoupageView : public QWidget
-{
+  {
     Q_OBJECT
 public:
     explicit DbDecoupageView(QWidget *parent = 0);
@@ -22,12 +22,15 @@ private:
     QTableView * myTableView;
     QLabel * labelBoutton;
     QPushButton * bouttonAfficher;
+    QLabel * labelSupprimer;
+    QPushButton * bouttonSupprimer;
     
 signals:
     void decoupageSelected(QString fichier, QString finF, int offsetX, int OffsetY);
 
 public slots:
     void clicSelection();
+    void supprDecoupage();
 
 };
 

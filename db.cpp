@@ -1,4 +1,5 @@
 #include "db.h"
+#include "io.h"
 
 DB::DB()
 {
@@ -99,6 +100,20 @@ bool DB::saveImage(int decoupageId, QString canal, QString chemin)
     query.bindValue(":chemin", chemin);
     bool ok = query.exec();
     return ok;
+}
+
+bool DB::supprDecoupage(int decoupageID, QString chemin)
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM decoupages WHERE id = :ID");
+    query.bindValue(0, decoupageID);
+    bool ok = query.exec();
+    QSqlQuery query2;
+    query2.prepare("DELETE FROM images WHERE decoupageId = :ID");
+    query2.bindValue(0, decoupageID);
+    bool ok2 = query2.exec();
+    bool ok3 = IO::removeDir(chemin);
+    return (ok && ok2 && ok3);
 }
 
 QSqlDatabase DB::getDB()

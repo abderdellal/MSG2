@@ -22,11 +22,13 @@ private:
     QTableView * myTableView;
     QLabel * labelBoutton;
     QPushButton * bouttonAfficher;
+    QPushButton * bouttonSupprimer;
     
 signals:
     void imageSelected(QString fichier, int offsetX, int OffsetY);
 public slots:
     void clicSelection();
+    void supprImage();
 };
 
 #endif // DBIMAGESVIEW_H

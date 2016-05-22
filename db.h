@@ -35,6 +35,7 @@ public:
     static int saveDecoupage(QString nom, int debX, int debY, int width, int height, QString jour, QString heure, QString quartDheur, QString cheminDecoupage);
     static bool saveImage(int decoupageID, QString canal, QString chemin);
     static bool supprDecoupage(int decoupageID, QString chemin = QString());
+    static bool supprImage(int ID, QString fichier);
     QSqlDatabase getDB();
 
 private:

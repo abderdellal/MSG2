@@ -33,6 +33,7 @@ private:
     LocationWidget * locationWidget;
     ImagesSelectWidget * selectionWidget;
     CommuneSelection * communeSelection;
+    QPushButton * bouttonDisplayAll;
     QGridLayout * Glayout;
     QWidget * centralWidget;
     QScrollArea * area;

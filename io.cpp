@@ -104,3 +104,9 @@ bool IO::removeDir(const QString & dirName)
     }
     return result;
 }
+
+bool IO::removeFile(const QString &dirName)
+{
+    QFile file (dirName);
+    return file.remove();
+}

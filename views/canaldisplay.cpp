@@ -9,6 +9,8 @@ CanalDisplay::CanalDisplay(QString CANAL, Image * img, QWidget *parent):
 {
     canal = CANAL;
     image = img;
+    offsetX = 0;
+    offsetY = 0;
 
     QVBoxLayout * Vlayout = new QVBoxLayout();
     QHBoxLayout * Hlayout1 = new QHBoxLayout();
@@ -108,4 +110,20 @@ void CanalDisplay::modifImage()
 void CanalDisplay::decoup(int x1, int y1, int x2, int y2)
 {
     emit decouper(x1, y1, x2, y2);
+}
+
+void CanalDisplay::displayALL()
+{
+    labelImage->displayAll();
+}
+
+void CanalDisplay::setOffsetX(int ox)
+{
+    offsetX = ox;
+    labelImage->setOffsetX(ox);
+}
+void CanalDisplay::setOffsetY(int oy)
+{
+    offsetY = oy;
+    labelImage->setOffsetY(oy);
 }

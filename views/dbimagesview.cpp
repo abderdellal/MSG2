@@ -1,4 +1,5 @@
 #include "dbimagesview.h"
+#include "QDebug"
 
 DbImagesView::DbImagesView(QWidget *parent) :
     QWidget(parent)
@@ -10,8 +11,10 @@ DbImagesView::DbImagesView(QWidget *parent) :
 
     labelBoutton = new QLabel("Pour afficher l'image selectionnée");
     bouttonAfficher = new QPushButton("Afficher");
+    bouttonSupprimer = new QPushButton("Supprimer");
     Hlayout->addWidget(labelBoutton);
     Hlayout->addWidget(bouttonAfficher);
+    Hlayout->addWidget(bouttonSupprimer);
     Hlayout->addStretch();
     Vlayout->addLayout(Hlayout);
     Vlayout->addWidget(myTableView);
@@ -34,7 +37,8 @@ DbImagesView::DbImagesView(QWidget *parent) :
     myTableView->setColumnHidden(11, true);
 
     this->setLayout(Vlayout);
-    connect(bouttonAfficher, SIGNAL(clicked()), this, SLOT(clicSelection()));
+    QObject::connect(bouttonAfficher, SIGNAL(clicked()), this, SLOT(clicSelection()));
+    QObject::connect(bouttonSupprimer, SIGNAL(clicked()), this, SLOT(supprImage()));
 }
 
 
@@ -51,4 +55,20 @@ void DbImagesView::clicSelection()
     index = myModel->index(row, 4);
     int offsetY = myModel->data(index, Qt::DisplayRole).toInt();
     emit imageSelected(path, offsetX, offsetY);
+}
+
+void DbImagesView::supprImage()
+{
+    QItemSelectionModel *selection = myTableView->selectionModel();
+    QModelIndex indexElementSelectionne = selection->currentIndex();
+    int row = indexElementSelectionne.row();
+    QModelIndex index = myModel->index(row, 11);
+    QVariant elementSelectionne = myModel->data(index, Qt::DisplayRole);
+    int ID = elementSelectionne.toInt();
+    index = myModel->index(row, 1);
+    QString chemin = myModel->data(index, Qt::DisplayRole).toString();
+    bool ok = DB::supprImage(ID, chemin);
+    ok =ok;
+    myModel->removeRow(row);
+    myTableView->hideRow(row);
 }

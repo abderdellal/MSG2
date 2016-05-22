@@ -16,6 +16,8 @@ public:
     ~CanalDisplay();
     void Display(Image * img, QString CANAL);
     void selectPixel(int ligne, int cologne);
+    void setOffsetX(int ox);
+    void setOffsetY(int oy);
     static const int canalWidth = 400;
     static const int canalHeight = 400;
 
@@ -26,6 +28,9 @@ private:
     QString canal;
     Image * image;
     QPixmap * pixmap;
+
+    int offsetX;
+    int offsetY;
 
     QLabel * labelType;
     QPushButton * bouttonModifier;
@@ -43,7 +48,7 @@ public slots:
     void prevenireSignal(int x, int y);
     void modifImage();
     void decoup(int x1, int y1, int x2, int y2);
-
+    void displayALL();
 };
 
 

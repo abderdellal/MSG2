@@ -116,6 +116,16 @@ bool DB::supprDecoupage(int decoupageID, QString chemin)
     return (ok && ok2 && ok3);
 }
 
+bool DB::supprImage(int ID, QString fichier)
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM images WHERE id = :ID");
+    query.bindValue(0, ID);
+    bool ok1 = query.exec();
+    bool ok2 = IO::removeFile(fichier);
+    return (ok1 && ok2);
+}
+
 QSqlDatabase DB::getDB()
 {
     return db;

@@ -30,6 +30,7 @@
     <addaction name="actionUni_canal"/>
     <addaction name="actionMulticanal"/>
     <addaction name="actionImages_enregistr_s"/>
+    <addaction name="actionDecoupage_enregistr_s"/>
    </widget>
    <addaction name="menuFichier"/>
   </widget>
@@ -45,7 +46,12 @@
   </action>
   <action name="actionImages_enregistr_s">
    <property name="text">
-    <string>images enregistrés</string>
+    <string>Images enregistrées</string>
+   </property>
+  </action>
+  <action name="actionDecoupage_enregistr_s">
+   <property name="text">
+    <string>Decoupage enregistrés</string>
    </property>
   </action>
  </widget>

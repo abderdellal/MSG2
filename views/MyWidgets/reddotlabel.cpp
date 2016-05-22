@@ -11,6 +11,8 @@ RedDotLabel::RedDotLabel(QWidget *parent) :
     y = 0;
     w = 0;
     h = 0;
+    offsetX = 0;
+    offsetY = 0;
 
     this->setScaledContents(true);
 }
@@ -22,6 +24,8 @@ RedDotLabel::RedDotLabel(int w, int h, QWidget *parent) :
     drawingAll = false;
     x = 0;
     y = 0;
+    offsetX = 0;
+    offsetY = 0;
 
     this->setScaledContents(true);
     this->w = w;
@@ -94,6 +98,8 @@ void RedDotLabel::drawAllPoints(QPainter * qp)
         LatLong::Getlinepixel(lat, lon, &line, &colomn);
         line -= 1;
         colomn -= 1;
+        line -= offsetY;
+        colomn -= offsetX;
         double factor = ((double) this->geometry().height()) /this->getPixmap()->height();
         factor = factor - 1;
         int y = ((line * this->geometry().height()) /this->getPixmap()->height() ) + factor;
@@ -145,4 +151,14 @@ void RedDotLabel::displayAll()
     }
     update();
 
+}
+
+void RedDotLabel::setOffsetX(int ox)
+{
+    offsetX = ox;
+}
+
+void RedDotLabel::setOffsetY(int oy)
+{
+    offsetY = oy;
 }

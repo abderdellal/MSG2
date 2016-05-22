@@ -30,9 +30,11 @@ signals:
 
 public slots:
     void uniCanalMode();
-    void uniCanalMode(QString fichier);
+    void uniCanalMode(QString fichier, int offsetX, int offsetY);
     void multiCanalMode();
+    void multiCanalMode(QString fichier, QString finF, int offsetX, int offsetY);
     void imageTableView();
+    void decoupageTableView();
 };
 
 #endif // MAINWINDOW_H

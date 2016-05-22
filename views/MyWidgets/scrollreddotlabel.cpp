@@ -83,7 +83,7 @@ void ScrollRedDotLabel::scaleImage(double factor)
         adjustScrollBar(scrollArea->horizontalScrollBar(), factor);
         adjustScrollBar(scrollArea->verticalScrollBar(), factor);
 
-        ZoomInBool = (scaleFactor < 3.0);
+        ZoomInBool = (scaleFactor < 6.0);
         ZoomOutBool = (scaleFactor > 0.167);
     }
 }
@@ -97,4 +97,14 @@ void ScrollRedDotLabel::adjustScrollBar(QScrollBar *scrollBar, double factor)
 void ScrollRedDotLabel::displayAll()
 {
     imageLabel->displayAll();
+}
+
+void ScrollRedDotLabel::setOffsetX(int ox)
+{
+    imageLabel->setOffsetX(ox);
+}
+
+void ScrollRedDotLabel::setOffsetY(int oy)
+{
+    imageLabel->setOffsetY(oy);
 }

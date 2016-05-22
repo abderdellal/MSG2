@@ -7,16 +7,24 @@
 UniCanalDisplay::UniCanalDisplay(QWidget *parent) :
     QWidget(parent)
 {
-    debX = 0;
-    debY = 0;
+    offsetX = 0;
+    offsetY = 0;
     prepareInterface();
 }
 
 UniCanalDisplay::UniCanalDisplay(QString fichier, QWidget *parent):
     QWidget(parent)
 {
-    debX = 0;
-    debY = 0;
+    offsetX = 0;
+    offsetY = 0;
+    prepareInterface();
+    displayImage(fichier);
+}
+
+UniCanalDisplay::UniCanalDisplay(QString fichier, int offsetX, int offsetY, QWidget *parent)
+{
+    this->offsetX = offsetX;
+    this->offsetY = offsetY;
     prepareInterface();
     displayImage(fichier);
 }
@@ -78,8 +86,12 @@ void UniCanalDisplay::prepareInterface()
 
 void UniCanalDisplay::OuvrirFichier()
 {
+    locationWidget->setOffsetX(0);
+    locationWidget->setOffsetY(0);
     QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", ".\\images");
     displayImage(fichier);
+    area->setOffsetX(0);
+    area->setOffsetY(0);
 }
 
 void UniCanalDisplay::displayImage(QString fichier)
@@ -114,6 +126,11 @@ void UniCanalDisplay::displayImage(QString fichier)
         QObject::connect(locationWidget, SIGNAL(coordinateChanged(int,int)), this, SLOT(updateCoordonate(int,int)));
         QObject::connect(communeSelection, SIGNAL(communeSelected(double,double)), locationWidget, SLOT(ChangeLatLong(double,double)));
         QObject::connect(bouttonDisplayAll, SIGNAL(clicked()), area, SLOT(displayAll()));
+
+        locationWidget->setOffsetX(offsetX);
+        locationWidget->setOffsetY(offsetY);
+        area->setOffsetX(offsetX);
+        area->setOffsetY(offsetY);
     }
 }
 

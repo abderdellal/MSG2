@@ -24,7 +24,7 @@ private:
     QPushButton * bouttonAfficher;
     
 signals:
-    void imageSelected(QString fichier);
+    void imageSelected(QString fichier, int offsetX, int OffsetY);
 public slots:
     void clicSelection();
 };

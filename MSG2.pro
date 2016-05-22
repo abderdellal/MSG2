@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     db.cpp \
     views/MyWidgets/communeselection.cpp \
     model/decoupage.cpp \
-    views/dbimagesview.cpp
+    views/dbimagesview.cpp \
+    views/dbdecoupageview.cpp
 
 HEADERS  += mainwindow.h \
     io.h \
@@ -55,7 +56,8 @@ HEADERS  += mainwindow.h \
     db.h \
     views/MyWidgets/communeselection.h \
     model/decoupage.h \
-    views/dbimagesview.h
+    views/dbimagesview.h \
+    views/dbdecoupageview.h
 
 FORMS    += mainwindow.ui
 

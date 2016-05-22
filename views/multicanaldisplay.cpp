@@ -146,3 +146,24 @@ void MultiCanalDisplay::decoupeImages(int x1, int y1, int x2, int y2)
         }
     }
 }
+
+void MultiCanalDisplay::setOffsetX(int ox)
+{
+    offsetX =ox;
+    locationWidget->setOffsetX(ox);
+}
+
+void MultiCanalDisplay::setOffsetY(int oy)
+{
+    offsetY = oy;
+    locationWidget->setOffsetY(oy);
+}
+
+void MultiCanalDisplay::setDossier(QString s)
+{
+    dossier = s;
+}
+void MultiCanalDisplay::setFinF(QString s)
+{
+    finF = s;
+}

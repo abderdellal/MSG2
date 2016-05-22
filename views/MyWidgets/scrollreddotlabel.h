@@ -14,6 +14,8 @@ class ScrollRedDotLabel : public QWidget
 public:
     ScrollRedDotLabel(QWidget * parent = 0);
     void setPixmap(QPixmap * p);
+    void setOffsetX(int ox);
+    void setOffsetY(int oy);
 
 private:
     void scaleImage(double factor);

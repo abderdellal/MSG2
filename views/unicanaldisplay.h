@@ -20,6 +20,7 @@ class UniCanalDisplay : public QWidget
 public:
     explicit UniCanalDisplay(QWidget *parent = 0);
     UniCanalDisplay(QString fichier, QWidget *parent = 0);
+    UniCanalDisplay(QString fichier, int offsetX, int offsetY ,QWidget *parent = 0);
     ~UniCanalDisplay();
     void prepareInterface();
 
@@ -40,8 +41,8 @@ private:
     Image * img;
     QPixmap * pixmap;
 
-    int debX;
-    int debY;
+    int offsetX;
+    int offsetY;
     
 signals:
     

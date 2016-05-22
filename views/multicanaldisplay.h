@@ -18,6 +18,10 @@ public:
     explicit MultiCanalDisplay(QWidget *parent = 0);
     void afficherImage();
     void propagerSignal(int x, int y);
+    void setOffsetX(int ox);
+    void setOffsetY(int oy);
+    void setDossier(QString s);
+    void setFinF(QString s);
 
 private:
     QString dossier;
@@ -32,6 +36,9 @@ private:
     QGridLayout * Glayout;
     QWidget * centralWidget;
     QScrollArea * area;
+
+    int offsetX;
+    int offsetY;
     
 signals:
     

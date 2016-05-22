@@ -19,6 +19,8 @@ public:
     void setDrawing(bool b);
     void setWidth(int);
     void setHeight (int);
+    void setOffsetX(int ox);
+    void setOffsetY(int oy);
 
 
 private:
@@ -29,6 +31,8 @@ private:
     int y;
     int w; //width
     int h; //height
+    int offsetX;
+    int offsetY;
     std::list<LatLonPair> pointsList;
 
     void drawAllPoints(QPainter *qp);

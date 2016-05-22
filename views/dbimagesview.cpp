@@ -8,7 +8,7 @@ DbImagesView::DbImagesView(QWidget *parent) :
     myTableView = new QTableView();
     myModel = new QSqlQueryModel(this);
 
-    labelBoutton = new QLabel("Pour afficher l'image selectionnées");
+    labelBoutton = new QLabel("Pour afficher l'image selectionnée");
     bouttonAfficher = new QPushButton("Afficher");
     Hlayout->addWidget(labelBoutton);
     Hlayout->addWidget(bouttonAfficher);
@@ -43,8 +43,12 @@ void DbImagesView::clicSelection()
     QItemSelectionModel *selection = myTableView->selectionModel();
     QModelIndex indexElementSelectionne = selection->currentIndex();
     int row = indexElementSelectionne.row();
-    QModelIndex indexID = myModel->index(row, 1);
-    QVariant elementSelectionne = myModel->data(indexID, Qt::DisplayRole);
+    QModelIndex index = myModel->index(row, 1);
+    QVariant elementSelectionne = myModel->data(index, Qt::DisplayRole);
     QString path = elementSelectionne.toString();
-    emit imageSelected(path);
+    index = myModel->index(row, 3);
+    int offsetX = myModel->data(index, Qt::DisplayRole).toInt();
+    index = myModel->index(row, 4);
+    int offsetY = myModel->data(index, Qt::DisplayRole).toInt();
+    emit imageSelected(path, offsetX, offsetY);
 }

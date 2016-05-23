@@ -94,6 +94,9 @@ void DecoupeImage::decoup()
 
 void DecoupeImage::changeCoordinate1(int x, int y)
 {
+    point1_x = x;
+    point1_y = y;
+
     int y1 =(int) ((double)(y * labelDecoupe->geometry().height()) /(double) pixmap->height() + 1);
     int x1 =(int) ((double)(x * labelDecoupe->geometry().width()) / (double)pixmap->width() )+ 1;
 
@@ -106,6 +109,9 @@ void DecoupeImage::changeCoordinate1(int x, int y)
 
 void DecoupeImage::changeCoordinate2(int x, int y)
 {
+    point2_x = x;
+    point2_y = y;
+
     int y1 =(int) ((double)(y * labelDecoupe->geometry().height()) /(double) pixmap->height() ) + 1;
     int x1 =(int) ((double)(x * labelDecoupe->geometry().width()) / (double)pixmap->width() ) + 1;
 
@@ -118,8 +124,8 @@ void DecoupeImage::changeCoordinate2(int x, int y)
 
 void DecoupeImage::decoupageParDefault()
 {
-    changeCoordinate1(1540, 610);
-    changeCoordinate2(2240,1310);
+    changeCoordinate1(1501, 441);
+    changeCoordinate2(2321,1147);
     setPoint1(1540 - 1, 610 - 1);
     setPoint2(2240 - 1,1310 - 1);
 }

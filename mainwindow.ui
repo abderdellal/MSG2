@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>685</width>
+    <height>443</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,29 +19,41 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>685</width>
      <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
-     <string>Fichier</string>
+     <string>Traitement de base</string>
     </property>
     <addaction name="actionUni_canal"/>
     <addaction name="actionMulticanal"/>
+   </widget>
+   <widget class="QMenu" name="menuBase_d_image">
+    <property name="title">
+     <string>Base d'image</string>
+    </property>
     <addaction name="actionImages_enregistr_s"/>
     <addaction name="actionDecoupage_enregistr_s"/>
    </widget>
+   <widget class="QMenu" name="menuTraitement_statistique">
+    <property name="title">
+     <string>Traitement statistique</string>
+    </property>
+   </widget>
    <addaction name="menuFichier"/>
+   <addaction name="menuBase_d_image"/>
+   <addaction name="menuTraitement_statistique"/>
   </widget>
   <action name="actionUni_canal">
    <property name="text">
-    <string>Unicanal</string>
+    <string>Affichage monospectral</string>
    </property>
   </action>
   <action name="actionMulticanal">
    <property name="text">
-    <string>Multicanal</string>
+    <string>Affichage multispectral</string>
    </property>
   </action>
   <action name="actionImages_enregistr_s">

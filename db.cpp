@@ -113,6 +113,11 @@ bool DB::supprDecoupage(int decoupageID, QString chemin)
     query2.bindValue(0, decoupageID);
     bool ok2 = query2.exec();
     bool ok3 = IO::removeDir(chemin);
+    if(!ok3)
+    {
+        QDir dir(chemin);
+        dir.rmdir(chemin);
+    }
     return (ok && ok2 && ok3);
 }
 

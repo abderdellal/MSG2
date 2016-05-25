@@ -164,6 +164,53 @@ Image * Image::difference(Image *image)
     }
 }
 
+long double Image::correlation(Image *image)
+{
+    if(image->getWidth() == width && image->getHeight() == height)
+    {
+        unsigned short * im2;
+        im2 = image->getData();
+        long double moy1, moy2, somme1, somme2;
+        somme1 = 0;
+        somme2 = 0;
+        for(int i = 0; i < (height * width) - 1; i++)
+        {
+            somme1 = somme1 + im[i];
+            somme2 = somme2 + im2[i];
+        }
+        moy1 = somme1/(height * width);
+        moy2 = somme2/(height * width);
+
+        double cov = 0;
+        long double covariance = 0;
+
+        for(int i = 0; i < (height * width) - 1; i++)
+        {
+            cov=(im[i]-moy1)*(im2[i]-moy2);
+            covariance=covariance+cov;
+        }
+
+        double var = 0;
+        long double variance1 = 0;
+        long double variance2 = 0;
+
+        for(int i = 0; i < (height * width) - 1; i++)
+        {
+            var = pow((im[i] - moy1),2);
+            variance1 = variance1 + var;
+            var = pow((im2[i] - moy2),2);
+            variance2 = variance2 + var;
+        }
+
+        long double cor = covariance /(sqrt(variance1) * sqrt(variance2));
+        return cor;
+    }
+    else
+    {
+        exit(0);
+    }
+}
+
 void Image::setOffsetX(int ox)
 {
     offsetX = ox;

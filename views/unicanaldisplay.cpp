@@ -100,6 +100,9 @@ void UniCanalDisplay::prepareInterface()
     Vlayout->addLayout(Hlayout2);
     Vlayout->setAlignment(Hlayout, Qt::AlignJustify);
     Vlayout->setAlignment(Hlayout2, Qt::AlignJustify);
+    area = new ScrollRedDotLabel();
+    Vlayout->addWidget(area);
+    area->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QObject::connect(bouttonOuvrir, SIGNAL(clicked()), this, SLOT(OuvrirFichier()));
     QObject::connect(bouttonNegatif, SIGNAL(clicked()), this, SLOT(negatif()));
     QObject::connect(bouttonContrast, SIGNAL(clicked()), this, SLOT(contrast()));

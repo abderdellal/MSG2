@@ -25,6 +25,7 @@ private:
     QPushButton * bouttonAfficher;
     QPushButton * bouttonSupprimer;
     QPushButton * bouttonDifference;
+    QPushButton * bouttonCorrelaion;
     
 signals:
     void imageSelected(QString fichier, int offsetX, int OffsetY);
@@ -33,6 +34,7 @@ public slots:
     void clicSelection();
     void supprImage();
     void difference();
+    void correlation();
 };
 
 #endif // DBIMAGESVIEW_H

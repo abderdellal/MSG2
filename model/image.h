@@ -27,6 +27,7 @@ public:
     Image * negatif();
     Image * contrastStatique();
     Image * difference(Image * image);
+    long double correlation(Image * image);
 
 private:
     unsigned short *im;

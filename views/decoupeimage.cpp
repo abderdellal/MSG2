@@ -24,11 +24,13 @@ DecoupeImage::DecoupeImage(QWidget *parent) :
     labelPoint2 = new QLabel("Point 2");
 
     Vlayout->addWidget(bouttonDefault);
+    Vlayout->setAlignment(bouttonDefault, Qt::AlignCenter);
     Vlayout->addWidget(labelPoint1);
     Vlayout->addWidget(locationwidget1);
     Vlayout->addWidget(labelPoint2);
     Vlayout->addWidget(locationwidget2);
     Vlayout->addWidget(bouttonDecouper);
+    Vlayout->setAlignment(bouttonDecouper, Qt::AlignCenter);
     Vlayout->addStretch();
 
     Hlayout->addWidget(labelDecoupe);

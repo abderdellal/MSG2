@@ -13,17 +13,19 @@ DbImagesView::DbImagesView(QWidget *parent) :
     myTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     myTableView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-    labelBoutton = new QLabel("Pour afficher l'image selectionnée");
+    labelBoutton = new QLabel("Operations : ");
     QIcon iconeAfficher("afficher.png");
     QIcon iconeSupprimer("supprimer.png");
     QIcon iconeDifference("difference.png");
     bouttonAfficher = new QPushButton(iconeAfficher, "Afficher");
     bouttonSupprimer = new QPushButton(iconeSupprimer, "Supprimer");
     bouttonDifference = new QPushButton(iconeDifference, "Difference");
+    bouttonCorrelaion = new QPushButton("Correlation");
     Hlayout->addWidget(labelBoutton);
     Hlayout->addWidget(bouttonAfficher);
     Hlayout->addWidget(bouttonSupprimer);
     Hlayout->addWidget(bouttonDifference);
+    Hlayout->addWidget(bouttonCorrelaion);
     Hlayout->addStretch();
     Vlayout->addLayout(Hlayout);
     Vlayout->addWidget(myTableView);
@@ -49,6 +51,7 @@ DbImagesView::DbImagesView(QWidget *parent) :
     QObject::connect(bouttonAfficher, SIGNAL(clicked()), this, SLOT(clicSelection()));
     QObject::connect(bouttonSupprimer, SIGNAL(clicked()), this, SLOT(supprImage()));
     QObject::connect(bouttonDifference, SIGNAL(clicked()), this, SLOT(difference()));
+    QObject::connect(bouttonCorrelaion, SIGNAL(clicked()), this, SLOT(correlation()));
 }
 
 
@@ -127,13 +130,67 @@ void DbImagesView::difference()
             img1 = new Image(chemin1);
             img2 = new Image(chemin2);
             diff = img1->difference(img2);
+            diff->setOffsetX(offsetx1);
+            diff->setOffsetY(offsety1);
             delete img1;
             delete img2;
             emit imageSelected(diff);
         }
         else
         {
-            QMessageBox::question(this, "Erreur", "impossible de faire la difference entre ces deux images");
+            QMessageBox::question(this, "impossible de faire la difference entre ces deux images", "ces deux images ne represente pas la même zone d'etude");
+        }
+
+    }
+}
+
+void DbImagesView::correlation()
+{
+    QItemSelectionModel *selection = myTableView->selectionModel();
+    QModelIndexList listeSelections = selection->selectedRows();
+
+    Image * img1, * img2;
+    QString chemin1, chemin2;
+    int width1, width2, height1, height2;
+
+    if (listeSelections.size() != 2)
+    {
+        QMessageBox::question(this, "Erreur", "vous devez selectionner deux images");
+    }
+    else
+    {
+        int row = listeSelections.at(0).row();
+        QModelIndex index = myModel->index(row, 1);
+        chemin1 = myModel->data(index, Qt::DisplayRole).toString();
+        index = myModel->index(row, 5);
+        width1 = myModel->data(index, Qt::DisplayRole).toInt();
+        index = myModel->index(row, 6);
+        height1 = myModel->data(index, Qt::DisplayRole).toInt();
+
+        row = listeSelections.at(1).row();
+        index = myModel->index(row, 1);
+        chemin2 = myModel->data(index, Qt::DisplayRole).toString();
+        index = myModel->index(row, 5);
+        width2 = myModel->data(index, Qt::DisplayRole).toInt();
+        index = myModel->index(row, 6);
+        height2 = myModel->data(index, Qt::DisplayRole).toInt();
+
+        if(width1 == width2 && height1 == height2)
+        {
+            img1 = new Image(chemin1);
+            img2 = new Image(chemin2);
+
+            double cor = img1->correlation(img2);
+
+            delete img1;
+            delete img2;
+            QString qs = "Correlation = ";
+            qs.append(QString::number(cor));
+            QMessageBox::question(this, "Correlation", qs);
+        }
+        else
+        {
+            QMessageBox::question(this, "impossible de calculer la correlation entre ces deux images", "ces deux image n'ont pas les même dimensions");
         }
 
     }

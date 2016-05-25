@@ -14,7 +14,7 @@ ImagesSelectWidget::ImagesSelectWidget(QWidget *parent) :
     labelDossier = new QLabel("Cliquez pour choisir un dossier d'image");
     bouttonDossier = new QPushButton("Dossier");
     QIcon icone;
-    icone.addFile(QString::fromUtf8("dossier-image-icone-4032-32.png"), QSize(), QIcon::Normal, QIcon::Off);
+    icone.addFile(QString::fromUtf8("dossier.png"), QSize(), QIcon::Normal, QIcon::Off);
     bouttonDossier->setIcon(icone);
     labelHeure = new QLabel("Spécifier l'heure" );
     comboHeure = new QComboBox();
@@ -73,7 +73,7 @@ void ImagesSelectWidget::setMinute(QString m)
 
 void ImagesSelectWidget::bouttonDossierClicked()
 {
-    dossier = QFileDialog::getExistingDirectory(this, "Dossier PGM", ".\\images");
+    dossier = QFileDialog::getExistingDirectory(this, "Dossier PGM", ".\\base_images");
     labelDossier->setText(dossier.section('\\', -1));
 }
 

@@ -2,6 +2,7 @@
 #define DBIMAGESVIEW_H
 
 #include "db.h"
+#include "image.h"
 
 #include <QWidget>
 #include <QSqlQueryModel>
@@ -23,12 +24,15 @@ private:
     QLabel * labelBoutton;
     QPushButton * bouttonAfficher;
     QPushButton * bouttonSupprimer;
+    QPushButton * bouttonDifference;
     
 signals:
     void imageSelected(QString fichier, int offsetX, int OffsetY);
+    void imageSelected(Image * img);
 public slots:
     void clicSelection();
     void supprImage();
+    void difference();
 };
 
 #endif // DBIMAGESVIEW_H

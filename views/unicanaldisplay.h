@@ -21,6 +21,7 @@ public:
     explicit UniCanalDisplay(QWidget *parent = 0);
     UniCanalDisplay(QString fichier, QWidget *parent = 0);
     UniCanalDisplay(QString fichier, int offsetX, int offsetY ,QWidget *parent = 0);
+    UniCanalDisplay(Image *img);
     ~UniCanalDisplay();
     void prepareInterface();
 
@@ -30,6 +31,8 @@ private:
     QPushButton * bouttonZoumIn;
     QPushButton * bouttonZoumOut;
     QPushButton * bouttonNormalSize;
+    QPushButton * bouttonNegatif;
+    QPushButton * bouttonContrast;
     QLabel * labelFichier;
     QLineEdit * editColor;
     QLabel * labelColor;
@@ -50,6 +53,9 @@ public slots:
     void OuvrirFichier();
     void updateCoordonate(int colomn ,int line);
     void displayImage(QString fichier);
+    void displayImage(Image *image);
+    void negatif();
+    void contrast();
 };
 
 #endif // UNICANALDISPLAY_H

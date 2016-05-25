@@ -17,7 +17,7 @@ CanalDisplay::CanalDisplay(QString CANAL, Image * img, QWidget *parent):
     QHBoxLayout * Hlayout2 = new QHBoxLayout();
 
     labelType = new QLabel(canal);
-    bouttonModifier = new QPushButton("Modifier");
+    bouttonModifier = new QPushButton("Découper");
     labelImage = new RedDotLabel();
     labelImage->setMaximumWidth(CanalDisplay::canalWidth);
     labelImage->setMaximumHeight((CanalDisplay::canalWidth * img->getHeight()) /img->getWidth());

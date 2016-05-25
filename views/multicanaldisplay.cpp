@@ -22,7 +22,8 @@ MultiCanalDisplay::MultiCanalDisplay(QWidget *parent) :
     locationWidget = new LocationWidget();
     selectionWidget = new ImagesSelectWidget();
     communeSelection = new CommuneSelection();
-    bouttonDisplayAll = new QPushButton("Afficher toutes les communes");
+    QIcon iconeAlgerie("algeria.png");
+    bouttonDisplayAll = new QPushButton(iconeAlgerie, "Afficher toutes les communes");
     Hlayout->addWidget(selectionWidget);
     Hlayout2->addWidget(locationWidget);
     Hlayout2->addWidget(communeSelection);

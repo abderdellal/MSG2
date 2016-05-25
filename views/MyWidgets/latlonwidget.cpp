@@ -13,7 +13,8 @@ LatLonWidget::LatLonWidget(QWidget *parent) :
     editLat = new QLineEdit();
     labelLon = new QLabel("Longitude ");
     editLon = new QLineEdit();
-    boutton = new QPushButton("Select");
+    QIcon iconeSelect("select.png");
+    boutton = new QPushButton(iconeSelect, "Select");
 
     editLat->setMaximumWidth(55);
     editLon->setMaximumWidth(55);

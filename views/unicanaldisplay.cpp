@@ -28,6 +28,13 @@ UniCanalDisplay::UniCanalDisplay(QString fichier, int offsetX, int offsetY, QWid
     prepareInterface();
     displayImage(fichier);
 }
+UniCanalDisplay::UniCanalDisplay(Image * img)
+{
+    this->offsetX = img->getOffsetX();
+    this->offsetY = img->getOffsetY();
+    prepareInterface();
+    displayImage(img);
+}
 
 UniCanalDisplay::~UniCanalDisplay()
 {
@@ -44,20 +51,31 @@ void UniCanalDisplay::prepareInterface()
     QHBoxLayout * Hlayout = new QHBoxLayout;
     QHBoxLayout * Hlayout2 = new QHBoxLayout;
 
-    bouttonOuvrir = new QPushButton("Ouvrire un fichier");
+    QIcon iconeFichier("afficher.png");
+    bouttonOuvrir = new QPushButton(iconeFichier, "Ouvrire un fichier");
     labelFichier = new QLabel();
-    bouttonZoumIn = new QPushButton("Zoum In");
-    bouttonZoumOut = new QPushButton("Zoum Out");
-    bouttonNormalSize = new QPushButton("Normal Size");
+    QIcon iconeZoumIn("zoomin.png");
+    QIcon iconeZoumOut("zoomout.png");
+    QIcon iconeNegatif("negatif.png");
+    QIcon iconeNormalSize("normalSize.png");
+    QIcon iconeContrast("contrast.png");
+    bouttonZoumIn = new QPushButton(iconeZoumIn,"Zoum In");
+    bouttonZoumOut = new QPushButton(iconeZoumOut, "Zoum Out");
+    bouttonNormalSize = new QPushButton(iconeNormalSize,"Normal Size");
+    bouttonNegatif = new QPushButton(iconeNegatif ,"negatif");
+    bouttonContrast = new QPushButton(iconeContrast, "Contrast statique");
     bouttonZoumIn->setVisible(false);
     bouttonZoumOut->setVisible(false);
     bouttonNormalSize->setVisible(false);
+    bouttonNegatif->setVisible(false);
+    bouttonContrast->setVisible(false);
     labelColor = new QLabel("Color ");
     editColor = new QLineEdit();
     editColor->setMaximumWidth(40);
     locationWidget = new LocationWidget();
     communeSelection = new CommuneSelection();
-    bouttonDisplayAll = new QPushButton("Afficher toutes les communes");
+    QIcon iconeAlgerie("algeria.png");
+    bouttonDisplayAll = new QPushButton(iconeAlgerie, "Afficher toutes les communes");
     bouttonDisplayAll->setVisible(false);
 
     Hlayout->addWidget(bouttonOuvrir);
@@ -69,6 +87,8 @@ void UniCanalDisplay::prepareInterface()
     Hlayout->addWidget(bouttonZoumIn);
     Hlayout->addWidget(bouttonZoumOut);
     Hlayout->addWidget(bouttonNormalSize);
+    Hlayout->addWidget(bouttonNegatif);
+    Hlayout->addWidget(bouttonContrast);
     Hlayout2->addWidget(locationWidget);
     Hlayout2->addWidget(labelColor);
     Hlayout2->addWidget(editColor);
@@ -81,57 +101,67 @@ void UniCanalDisplay::prepareInterface()
     Vlayout->setAlignment(Hlayout, Qt::AlignJustify);
     Vlayout->setAlignment(Hlayout2, Qt::AlignJustify);
     QObject::connect(bouttonOuvrir, SIGNAL(clicked()), this, SLOT(OuvrirFichier()));
+    QObject::connect(bouttonNegatif, SIGNAL(clicked()), this, SLOT(negatif()));
+    QObject::connect(bouttonContrast, SIGNAL(clicked()), this, SLOT(contrast()));
+
     this->setLayout(Vlayout);
 }
 
 void UniCanalDisplay::OuvrirFichier()
 {
-    locationWidget->setOffsetX(0);
-    locationWidget->setOffsetY(0);
     QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", ".\\images");
-    displayImage(fichier);
-    area->setOffsetX(0);
-    area->setOffsetY(0);
+    if (!fichier.isNull())
+    {
+        offsetX = 0;
+        offsetY = 0;
+        displayImage(fichier);
+    }
 }
 
 void UniCanalDisplay::displayImage(QString fichier)
 {
-    if (!fichier.isNull())
+    labelFichier->setText(fichier.section("/",-1));
+    displayImage(new Image(fichier));
+}
+
+void UniCanalDisplay::displayImage(Image * image)
+{
+    if(area)
     {
-        if(area)
-        {
-            delete area;
-        }
-
-        if(img) delete img;
-        if(pixmap)  delete pixmap;
-
-        labelFichier->setText(fichier.section("/",-1));
-        img = new Image(fichier);
-        QImage * qimage = ImageController::getQImage(img);
-        pixmap = new QPixmap();
-        pixmap->convertFromImage(*qimage);
-        delete qimage;
-        area = new ScrollRedDotLabel();
-        area->setPixmap(pixmap);
-        Vlayout->addWidget(area);
-        bouttonZoumIn->setVisible(true);
-        bouttonZoumOut->setVisible(true);
-        bouttonNormalSize->setVisible(true);
-        bouttonDisplayAll->setVisible(true);
-        QObject::connect(bouttonZoumIn, SIGNAL(clicked()), area, SLOT(zoomIn()));
-        QObject::connect(bouttonZoumOut, SIGNAL(clicked()), area, SLOT(zoomOut()));
-        QObject::connect(bouttonNormalSize,SIGNAL(clicked()), area, SLOT(normalSize()));
-        QObject::connect(area, SIGNAL(clicked(int,int)), this, SLOT(updateCoordonate(int,int)));
-        QObject::connect(locationWidget, SIGNAL(coordinateChanged(int,int)), this, SLOT(updateCoordonate(int,int)));
-        QObject::connect(communeSelection, SIGNAL(communeSelected(double,double)), locationWidget, SLOT(ChangeLatLong(double,double)));
-        QObject::connect(bouttonDisplayAll, SIGNAL(clicked()), area, SLOT(displayAll()));
-
-        locationWidget->setOffsetX(offsetX);
-        locationWidget->setOffsetY(offsetY);
-        area->setOffsetX(offsetX);
-        area->setOffsetY(offsetY);
+        delete area;
     }
+
+    if(pixmap)  delete pixmap;
+    if(img) delete img;
+
+    img = image;
+
+    QImage * qimage = ImageController::getQImage(img);
+    pixmap = new QPixmap();
+    pixmap->convertFromImage(*qimage);
+    delete qimage;
+    area = new ScrollRedDotLabel();
+    area->setPixmap(pixmap);
+    Vlayout->addWidget(area);
+    bouttonZoumIn->setVisible(true);
+    bouttonZoumOut->setVisible(true);
+    bouttonNormalSize->setVisible(true);
+    bouttonNegatif->setVisible(true);
+    bouttonContrast->setVisible(true);
+    bouttonDisplayAll->setVisible(true);
+    QObject::connect(bouttonZoumIn, SIGNAL(clicked()), area, SLOT(zoomIn()));
+    QObject::connect(bouttonZoumOut, SIGNAL(clicked()), area, SLOT(zoomOut()));
+    QObject::connect(bouttonNormalSize,SIGNAL(clicked()), area, SLOT(normalSize()));
+    QObject::connect(area, SIGNAL(clicked(int,int)), this, SLOT(updateCoordonate(int,int)));
+    QObject::connect(locationWidget, SIGNAL(coordinateChanged(int,int)), this, SLOT(updateCoordonate(int,int)));
+    QObject::connect(communeSelection, SIGNAL(communeSelected(double,double)), locationWidget, SLOT(ChangeLatLong(double,double)));
+    QObject::connect(bouttonDisplayAll, SIGNAL(clicked()), area, SLOT(displayAll()));
+
+    locationWidget->setOffsetX(offsetX);
+    locationWidget->setOffsetY(offsetY);
+    area->setOffsetX(offsetX);
+    area->setOffsetY(offsetY);
+
 }
 
 void UniCanalDisplay::updateCoordonate(int colomn, int line)
@@ -142,4 +172,16 @@ void UniCanalDisplay::updateCoordonate(int colomn, int line)
     QString sColor;
     sColor.setNum(color);
     editColor->setText(sColor);
+}
+
+void UniCanalDisplay::negatif()
+{
+    Image * newImage = img->negatif();
+    displayImage(newImage);
+}
+
+void UniCanalDisplay::contrast()
+{
+    Image * newImage = img->contrastStatique();
+    displayImage(newImage);
 }

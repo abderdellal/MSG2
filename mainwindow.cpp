@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QIcon icone("satellite.png");
+    this->setWindowIcon(icone);
     mode = uni;
     layout = new QVBoxLayout();
     layout->setMargin(0);
@@ -32,6 +34,7 @@ void MainWindow::imageTableView()
     DbImagesView * imagesView = new DbImagesView();
     layout->addWidget(imagesView);
     QObject::connect(imagesView, SIGNAL(imageSelected(QString,int,int)), this, SLOT(uniCanalMode(QString,int,int)));
+    QObject::connect(imagesView, SIGNAL(imageSelected(Image*)), this, SLOT(uniCanalMode(Image*)));
 }
 
 void MainWindow::decoupageTableView()
@@ -56,6 +59,14 @@ void MainWindow::uniCanalMode(QString fichier, int offsetX, int offsetY)
     mode = uni;
     clearCentralWidget();
     UniCanalDisplay * uniCanal = new UniCanalDisplay(fichier, offsetX, offsetY);
+    layout->addWidget(uniCanal);
+}
+
+void MainWindow::uniCanalMode(Image *img)
+{
+    mode = uni;
+    clearCentralWidget();
+    UniCanalDisplay * uniCanal = new UniCanalDisplay(img);
     layout->addWidget(uniCanal);
 }
 

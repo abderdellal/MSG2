@@ -15,7 +15,8 @@ coordinateWidget::coordinateWidget(QWidget *parent) :
     editX = new QLineEdit();
     labelY = new QLabel("Y ");
     editY = new QLineEdit();
-    boutton = new QPushButton("Select");
+    QIcon iconeSelect("select.png");
+    boutton = new QPushButton(iconeSelect, "Select");
 
 
     editX->setMaximumWidth(40);

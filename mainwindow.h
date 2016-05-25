@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include "image.h"
 
 enum Mode{uni, multi, Table};
 
@@ -31,6 +32,7 @@ signals:
 public slots:
     void uniCanalMode();
     void uniCanalMode(QString fichier, int offsetX, int offsetY);
+    void uniCanalMode(Image * img);
     void multiCanalMode();
     void multiCanalMode(QString fichier, QString finF, int offsetX, int offsetY);
     void imageTableView();

@@ -12,7 +12,8 @@ CommuneSelection::CommuneSelection(QWidget *parent) :
     comboCommune = new QComboBox();
     comboCommune->setMaximumWidth(150);
     comboCommune->setMinimumWidth(150);
-    bouttonSelect = new QPushButton("Select");
+    QIcon iconeSelect("select.png");
+    bouttonSelect = new QPushButton(iconeSelect, "Select");
     bouttonSelect->setMaximumWidth(80);
     layout->addWidget(labelWilaya);
     layout->addWidget(comboWilaya);

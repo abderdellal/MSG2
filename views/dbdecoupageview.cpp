@@ -9,10 +9,14 @@ DbDecoupageView::DbDecoupageView(QWidget *parent) :
     myTableView = new QTableView();
     myModel = new QSqlQueryModel(this);
 
+    myTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    QIcon iconeAfficher("afficher.png");
+    QIcon iconeSupprimer("supprimer.png");
     labelBoutton = new QLabel("Pour afficher le decoupage selectionné");
-    bouttonAfficher = new QPushButton("Afficher");
+    bouttonAfficher = new QPushButton(iconeAfficher, "Afficher");
     labelSupprimer = new QLabel("Pour supprimer le decoupage selectionné");
-    bouttonSupprimer = new QPushButton("Supprimer");
+    bouttonSupprimer = new QPushButton(iconeSupprimer, "Supprimer");
     Hlayout->addWidget(labelBoutton);
     Hlayout->addWidget(bouttonAfficher);
     Hlayout->addWidget(labelSupprimer);

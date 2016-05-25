@@ -1,7 +1,7 @@
 
 #include "image.h"
 #include "IO.h"
-
+#include <QDebug>
 
 Image::Image(const char *fichier)
 {
@@ -21,8 +21,8 @@ Image::Image(unsigned short *data, int w, int h)
     im = data;
     width = w;
     height = h;
-    debX = 0;
-    debY = 0;
+    offsetX = 0;
+    offsetY = 0;
 }
 
 Image::Image(unsigned short *data, int dX, int dY, int w, int h)
@@ -30,8 +30,8 @@ Image::Image(unsigned short *data, int dX, int dY, int w, int h)
     im = data;
     width = w;
     height = h;
-    debX = dX;
-    debY = dY;
+    offsetX = dX;
+    offsetY = dY;
 }
 
 Image::~Image()
@@ -65,7 +65,7 @@ char Image::getCharPixel(int x, int y)
 int Image::getIntPixel(int x, int y)
 {
     if(y < width && x < height)
-        return ((im[x * width + y] % 1024) / 4);
+        return ((im[x * width + y] % 1024));
     else
         return 0;
 }
@@ -99,4 +99,84 @@ void Image::save(QString location)
     std::string s = location.toStdString();
     const char * c = s.c_str();
     IO::sauverPGM16(im, c, height,width);
+}
+
+Image * Image::negatif()
+{
+    unsigned short * newIm;
+
+    newIm = (unsigned short *) malloc(width*height*sizeof(unsigned short));
+
+    for(int i = 0; i < (height*width) - 1; i++)
+    {
+        newIm[i] = 1023 - ((im[i]%1024));
+    }
+
+    Image * newImg = new Image(newIm, width, height);
+    return newImg;
+}
+
+Image * Image::contrastStatique()
+{
+    int min = 0;
+    int max = 0;
+    unsigned short * contraste;
+
+    contraste = (unsigned short *) malloc(width*height*sizeof(unsigned short));
+
+    for(int i = 0; i < (height*width) - 1; i++)
+    {
+        if(max < im[i])
+            max = im[i];
+        if(min > im[i])
+            min = im[i];
+    }
+    for(int i=0;i<(height*width) - 1;i++)
+    {
+        unsigned short color = (((double)im[i]-(double)min) / ((double)(max-min)))*1024;
+        contraste[i]= color;
+    }
+
+    Image * newImg = new Image(contraste, width, height);
+    return newImg;
+}
+
+Image * Image::difference(Image *image)
+{
+    if(image->getWidth() == width && image->getHeight() == height)
+    {
+        unsigned short * newIm;
+        newIm = (unsigned short *) malloc(width*height*sizeof(unsigned short));
+
+        unsigned short * im2 = image->getData();
+
+        for(int i=0;i<(height*width) - 1;i++)
+        {
+            unsigned short color = abs(im[i] - im2[i]);
+            newIm[i]= color;
+        }
+        Image * newImg = new Image(newIm, width, height);
+        return newImg;
+    }
+    else
+    {
+        return image;
+    }
+}
+
+void Image::setOffsetX(int ox)
+{
+    offsetX = ox;
+}
+void Image::setOffsetY(int oy)
+{
+    offsetY = oy;
+}
+int Image::getOffsetX()
+{
+    return offsetX;
+}
+int Image::getOffsetY()
+{
+    return offsetY;
 }

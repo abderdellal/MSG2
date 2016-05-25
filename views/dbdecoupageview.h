@@ -10,6 +10,9 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QSqlQueryModel>
+#include "db.h"
+#include "image.h"
+#include "calcul.h"
 
 class DbDecoupageView : public QWidget
   {
@@ -24,13 +27,16 @@ private:
     QPushButton * bouttonAfficher;
     QLabel * labelSupprimer;
     QPushButton * bouttonSupprimer;
+    QPushButton * bouttonNDVI;
     
 signals:
     void decoupageSelected(QString fichier, QString finF, int offsetX, int OffsetY);
+    void imageToDisplay(Image * img);
 
 public slots:
     void clicSelection();
     void supprDecoupage();
+    void NDVI();
 
 };
 

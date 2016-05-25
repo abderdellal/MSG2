@@ -133,7 +133,7 @@ Image * Image::contrastStatique()
     }
     for(int i=0;i<(height*width) - 1;i++)
     {
-        unsigned short color = (((double)im[i]-(double)min) / ((double)(max-min)))*1024;
+        unsigned short color = (((double)im[i]-(double)min) / ((double)(max-min)))*1023;
         contraste[i]= color;
     }
 

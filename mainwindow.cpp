@@ -44,6 +44,7 @@ void MainWindow::decoupageTableView()
     DbDecoupageView * decoupageView = new DbDecoupageView();
     layout->addWidget(decoupageView);
     QObject::connect(decoupageView, SIGNAL(decoupageSelected(QString,QString,int,int)), this, SLOT(multiCanalMode(QString,QString,int,int)));
+    QObject::connect(decoupageView, SIGNAL(imageToDisplay(Image*)), this, SLOT(uniCanalMode(Image*)));
 }
 
 void MainWindow::uniCanalMode()

@@ -42,12 +42,12 @@ private:
 
 signals:
     void PixelSelected(int x, int y);
-    void decouper(int x1, int y1, int x2, int y2);
+    void decouper(int x1, int y1, int x2, int y2, bool compress);
 
 public slots:
     void prevenireSignal(int x, int y);
     void modifImage();
-    void decoup(int x1, int y1, int x2, int y2);
+    void decoup(int x1, int y1, int x2, int y2, bool compress);
     void displayALL();
 };
 

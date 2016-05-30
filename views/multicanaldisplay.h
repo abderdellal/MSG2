@@ -33,6 +33,7 @@ private:
     LocationWidget * locationWidget;
     ImagesSelectWidget * selectionWidget;
     CommuneSelection * communeSelection;
+    QPushButton * bouttonCompress;
     QPushButton * bouttonDisplayAll;
     QGridLayout * Glayout;
     QWidget * centralWidget;
@@ -46,7 +47,8 @@ signals:
 public slots:
     void selectFolder(QString folder, QString finFichier);
     void ChangeCoordinate(int x, int y);
-    void decoupeImages(int x1, int y1, int x2, int y2);
+    void decoupeImages(int x1, int y1, int x2, int y2, bool compresse);
+    void saveImageCompresse();
 };
 
 #endif // MultiCanalDisplay_H

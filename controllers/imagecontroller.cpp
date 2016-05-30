@@ -21,9 +21,9 @@ QImage * ImageController::DataToQImage( int width, int height, unsigned short * 
 }
 Image * ImageController::getImage(QString fichier)
 {
-    std::string s = fichier.toStdString();
-    const char * f = s.c_str();
-    Image * image = new Image(f);
+    //std::string s = fichier.toStdString();
+    //const char * f = s.c_str();
+    Image * image = new Image(fichier);
     return image;
 }
 

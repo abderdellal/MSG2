@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     model/decoupage.cpp \
     views/dbimagesview.cpp \
     views/dbdecoupageview.cpp \
-    controllers/calcul.cpp
+    controllers/calcul.cpp \
+    fbitbuffer.cpp
 
 HEADERS  += mainwindow.h \
     io.h \
@@ -59,7 +60,8 @@ HEADERS  += mainwindow.h \
     model/decoupage.h \
     views/dbimagesview.h \
     views/dbdecoupageview.h \
-    controllers/calcul.h
+    controllers/calcul.h \
+    fbitbuffer.h
 
 FORMS    += mainwindow.ui
 

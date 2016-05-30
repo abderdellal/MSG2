@@ -23,6 +23,7 @@ public:
     int getOffsetY();
     unsigned short * getData();
     void save(QString location);
+    void saveCompress(QString location);
     Image * crop(int x1, int y1, int x2, int y2);
     Image * negatif();
     Image * contrastStatique();

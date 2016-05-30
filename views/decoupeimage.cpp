@@ -22,6 +22,8 @@ DecoupeImage::DecoupeImage(QWidget *parent) :
     bouttonDecouper->setMaximumWidth(200);
     labelPoint1 = new QLabel("Point 1");
     labelPoint2 = new QLabel("Point 2");
+    labelCompress = new QLabel("Compresser ");
+    checkBoxCompress = new QCheckBox();
 
     Vlayout->addWidget(bouttonDefault);
     Vlayout->setAlignment(bouttonDefault, Qt::AlignCenter);
@@ -30,6 +32,8 @@ DecoupeImage::DecoupeImage(QWidget *parent) :
     Vlayout->addWidget(labelPoint2);
     Vlayout->addWidget(locationwidget2);
     Vlayout->addWidget(bouttonDecouper);
+    Vlayout->addWidget(labelCompress);
+    Vlayout->addWidget(checkBoxCompress);
     Vlayout->setAlignment(bouttonDecouper, Qt::AlignCenter);
     Vlayout->addStretch();
 
@@ -90,7 +94,8 @@ void DecoupeImage::clear()
 
 void DecoupeImage::decoup()
 {
-    emit decouper(point1_x, point1_y, point2_x, point2_y);
+    bool compress = checkBoxCompress->isChecked();
+    emit decouper(point1_x, point1_y, point2_x, point2_y, compress);
     this->close();
 }
 
@@ -100,7 +105,7 @@ void DecoupeImage::changeCoordinate1(int x, int y)
     point1_y = y;
 
     int y1 =(int) ((double)(y * labelDecoupe->geometry().height()) /(double) pixmap->height() + 1);
-    int x1 =(int) ((double)(x * labelDecoupe->geometry().width()) / (double)pixmap->width() )+ 1;
+    int x1 =(int) ((double)(x * labelDecoupe->geometry().width()) / (double) pixmap->width())+ 1;
 
     labelDecoupe->setPointX1(x1);
     labelDecoupe->setPointY1(y1);

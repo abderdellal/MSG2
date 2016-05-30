@@ -101,15 +101,15 @@ void CanalDisplay::selectPixel(int ligne, int cologne)
 void CanalDisplay::modifImage()
 {
     fen = new DecoupeImage();
-    QObject::connect(fen, SIGNAL(decouper(int,int,int,int)), this, SLOT(decoup(int,int,int,int)));
+    QObject::connect(fen, SIGNAL(decouper(int,int,int,int, bool)), this, SLOT(decoup(int,int,int,int,bool)));
 
     fen->setPixmap(pixmap);
     fen->afficher();
 }
 
-void CanalDisplay::decoup(int x1, int y1, int x2, int y2)
+void CanalDisplay::decoup(int x1, int y1, int x2, int y2, bool compress)
 {
-    emit decouper(x1, y1, x2, y2);
+    emit decouper(x1, y1, x2, y2, compress);
 }
 
 void CanalDisplay::displayALL()

@@ -25,7 +25,7 @@ QMap<QString, Image *> MultiCanalController::getImagesList(QString dossier, QStr
         it.next();
         QString fichier = it.fileName();
 
-        if (/*fichier.contains(jour) && */fichier.endsWith(fin + ".pgm"))
+        if (/*fichier.contains(jour) && */fichier.endsWith(fin + ".pgm") || fichier.endsWith(fin + ".pgmc"))
         {
             foreach(QString type, listTypes)
             {

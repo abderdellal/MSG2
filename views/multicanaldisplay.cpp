@@ -22,9 +22,12 @@ MultiCanalDisplay::MultiCanalDisplay(QWidget *parent) :
     locationWidget = new LocationWidget();
     selectionWidget = new ImagesSelectWidget();
     communeSelection = new CommuneSelection();
+    bouttonCompress = new QPushButton("Compresser");
+    bouttonCompress->setVisible(false);
     QIcon iconeAlgerie("algeria.png");
     bouttonDisplayAll = new QPushButton(iconeAlgerie, "Afficher toutes les communes");
     Hlayout->addWidget(selectionWidget);
+    Hlayout->addWidget(bouttonCompress);
     Hlayout2->addWidget(locationWidget);
     Hlayout2->addWidget(communeSelection);
     Hlayout2->addWidget(bouttonDisplayAll);
@@ -44,6 +47,7 @@ MultiCanalDisplay::MultiCanalDisplay(QWidget *parent) :
     this->setLayout(Vlayout);
 
     QObject::connect(selectionWidget, SIGNAL(folderSelected(QString,QString)), this, SLOT(selectFolder(QString,QString)));
+    QObject::connect(bouttonCompress, SIGNAL(clicked()), this, SLOT(saveImageCompresse()));
 }
 
 void MultiCanalDisplay::selectFolder(QString folder, QString finFichier)
@@ -78,12 +82,13 @@ void MultiCanalDisplay::afficherImage()
         display->setOffsetX(offsetX);
         display->setOffsetY(offsetY);
         QObject::connect(display, SIGNAL(PixelSelected(int,int)), this, SLOT(ChangeCoordinate(int,int)));
-        QObject::connect(display, SIGNAL(decouper(int,int,int,int)), this, SLOT(decoupeImages(int,int,int,int)));
+        QObject::connect(display, SIGNAL(decouper(int,int,int,int,bool)), this, SLOT(decoupeImages(int,int,int,int,bool)));
         QObject::connect(locationWidget, SIGNAL(coordinateChanged(int,int)), this, SLOT(ChangeCoordinate(int,int)));
         QObject::connect(communeSelection, SIGNAL(communeSelected(double,double)), locationWidget, SLOT(ChangeLatLong(double,double)));
         QObject::connect(bouttonDisplayAll, SIGNAL(clicked()), display, SLOT(displayALL()));
         j++;
     }
+    bouttonCompress->setVisible(true);
 }
 void MultiCanalDisplay::ChangeCoordinate(int x, int y)
 {
@@ -100,7 +105,7 @@ void MultiCanalDisplay::propagerSignal(int x, int y)
 }
 
 
-void MultiCanalDisplay::decoupeImages(int x1, int y1, int x2, int y2)
+void MultiCanalDisplay::decoupeImages(int x1, int y1, int x2, int y2, bool compresse)
 {
     bool ok = false;
     QString nomDecoupage = QInputDialog::getText(this, "Decoupage", "entrez le nom du Découpage",QLineEdit::Normal , QString(), &ok);
@@ -144,12 +149,25 @@ void MultiCanalDisplay::decoupeImages(int x1, int y1, int x2, int y2)
             filePath.append(type);
             filePath.append(dossier.section('\\',-1));
             filePath.append(finF);
-            filePath.append(".pgm");
 
-            Image * newImg = img->crop(x1, y1, x2, y2);
-            newImg->save(filePath);
-            DB::saveImage(decoupageId, type, filePath);
-            delete newImg;
+            if(!compresse)
+            {
+                filePath.append(".pgm");
+                Image * newImg = img->crop(x1, y1, x2, y2);
+                newImg->save(filePath);
+                DB::saveImage(decoupageId, type, filePath);
+                delete newImg;
+            }
+            else
+            {
+                filePath.append(".pgmc");
+                Image * newImg = img->crop(x1, y1, x2, y2);
+                newImg->saveCompress(filePath);
+                DB::saveImage(decoupageId, type, filePath);
+                delete newImg;
+            }
+
+
         }
     }
 }
@@ -173,4 +191,31 @@ void MultiCanalDisplay::setDossier(QString s)
 void MultiCanalDisplay::setFinF(QString s)
 {
     finF = s;
+}
+
+void MultiCanalDisplay::saveImageCompresse()
+{
+    QMap<QString, Image *> map = MultiCanalController::getImagesList(dossier, finF);
+    imagesMap = map.toStdMap();
+    std::map<QString, Image *>::iterator it;
+    for(it = imagesMap.begin() ; it != imagesMap.end() ; ++it)
+    {
+        QString type = it->first;
+        Image * img = it->second;
+        QString filePath = "";
+        filePath.append(".\\pgm_compresses\\");
+        filePath.append(dossier.section('\\',-1));
+
+        QDir dir(filePath);
+        if (!dir.exists()) {
+            dir.mkpath(".");
+        }
+
+        filePath.append("\\");
+        filePath.append(type);
+        filePath.append(dossier.section('\\',-1));
+        filePath.append(finF);
+        filePath.append(".pgmc");
+        img->saveCompress(filePath);
+    }
 }

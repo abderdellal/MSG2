@@ -2,17 +2,24 @@
 #include "image.h"
 #include "IO.h"
 #include <QDebug>
-
+/*
 Image::Image(const char *fichier)
 {
     im = IO::getImage(fichier, height, width);
 }
-
+*/
 Image::Image(QString fichier)
 {
     std::string s = fichier.toStdString();
     const char * c = s.c_str();
+    if(fichier.endsWith(".pgm"))
+    {
     im = IO::getImage(c, height, width);
+    }
+    else if(fichier.endsWith(".pgmc"))
+    {
+        im = IO::getImageCompress(c, height, width);
+    }
 }
 
 
@@ -99,6 +106,13 @@ void Image::save(QString location)
     std::string s = location.toStdString();
     const char * c = s.c_str();
     IO::sauverPGM16(im, c, height,width);
+}
+
+void Image::saveCompress(QString location)
+{
+    std::string s = location.toStdString();
+    const char * c = s.c_str();
+    IO::sauverPGM16Compresse(im, c, height,width);
 }
 
 Image * Image::negatif()

@@ -140,15 +140,22 @@ Image * Image::contrastStatique()
 
     for(int i = 0; i < (height*width) - 1; i++)
     {
-        if(max < im[i])
-            max = im[i];
-        if(min > im[i])
-            min = im[i];
+        if(max < im[i]%1024)
+            max = im[i]%1024;
+        if(min > im[i]%1024)
+            min = im[i]%1024;
     }
     for(int i=0;i<(height*width) - 1;i++)
     {
-        unsigned short color = (((double)im[i]-(double)min) / ((double)(max-min)))*1023;
-        contraste[i]= color;
+        if((max - min) > 0)
+        {
+            unsigned short color = (((double)im[i]-(double)min) / ((double)(max-min)))*1023;
+            contraste[i]= color;
+        }
+        else
+        {
+            contraste[i]= im[i];
+        }
     }
 
     Image * newImg = new Image(contraste, width, height);

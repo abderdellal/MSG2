@@ -162,7 +162,7 @@ bool IO::coder(FBitBuffer::BitBuffer * flux, unsigned short * im, int offsetX, i
     }
     else if(width == 1 && height == 1)
     {
-        FBitBuffer::fwrite_bits(1, 1, flux);
+        //FBitBuffer::fwrite_bits(1, 1, flux);
         FBitBuffer::fwrite_bits(im[(offsetY*imWidth)+offsetX], 10, flux);
     }
     else if(width > 1 || height > 1)
@@ -256,13 +256,13 @@ unsigned short * IO::getImageCompress(const char * fichier, int &height, int &wi
     }
     else if(width == 1 && height == 1)
     {
-        bool ok = ((bool)FBitBuffer::fread_bits(1, flux));
+        //bool ok = ((bool)FBitBuffer::fread_bits(1, flux));
         int color = FBitBuffer::fread_bits(10, flux);
         im[(offsetY*imWidth) + offsetX] = color;
-        if(!ok)
+        /*if(!ok)
         {
             std::cout << "errer" << std::endl;
-        }
+        }*/
     }
     else
     {

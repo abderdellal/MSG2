@@ -22,7 +22,8 @@ MultiCanalDisplay::MultiCanalDisplay(QWidget *parent) :
     locationWidget = new LocationWidget();
     selectionWidget = new ImagesSelectWidget();
     communeSelection = new CommuneSelection();
-    bouttonCompress = new QPushButton("Compresser");
+    QIcon iconeCompress("compress.png");
+    bouttonCompress = new QPushButton(iconeCompress, "Compresser");
     bouttonCompress->setVisible(false);
     QIcon iconeAlgerie("algeria.png");
     bouttonDisplayAll = new QPushButton(iconeAlgerie, "Afficher toutes les communes");

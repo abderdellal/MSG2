@@ -31,9 +31,18 @@ DecoupeImage::DecoupeImage(QWidget *parent) :
     Vlayout->addWidget(locationwidget1);
     Vlayout->addWidget(labelPoint2);
     Vlayout->addWidget(locationwidget2);
+    Vlayout->addSpacing(50);
+
+    QHBoxLayout * H2layout = new QHBoxLayout();
+    H2layout->addSpacing(50);
+    H2layout->addWidget(labelCompress);
+    H2layout->addSpacing(50);
+    H2layout->addWidget(checkBoxCompress);
+    H2layout->addStretch();
+    Vlayout->addLayout(H2layout);
+    Vlayout->addSpacing(50);
+
     Vlayout->addWidget(bouttonDecouper);
-    Vlayout->addWidget(labelCompress);
-    Vlayout->addWidget(checkBoxCompress);
     Vlayout->setAlignment(bouttonDecouper, Qt::AlignCenter);
     Vlayout->addStretch();
 

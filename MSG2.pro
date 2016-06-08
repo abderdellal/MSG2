@@ -35,7 +35,9 @@ SOURCES += main.cpp\
     views/dbimagesview.cpp \
     views/dbdecoupageview.cpp \
     controllers/calcul.cpp \
-    fbitbuffer.cpp
+    fbitbuffer.cpp \
+    qcustomplot.cpp \
+    views/chartview.cpp
 
 HEADERS  += mainwindow.h \
     io.h \
@@ -61,7 +63,9 @@ HEADERS  += mainwindow.h \
     views/dbimagesview.h \
     views/dbdecoupageview.h \
     controllers/calcul.h \
-    fbitbuffer.h
+    fbitbuffer.h \
+    qcustomplot.h \
+    views/chartview.h
 
 FORMS    += mainwindow.ui
 

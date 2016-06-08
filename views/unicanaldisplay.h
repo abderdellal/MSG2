@@ -5,6 +5,7 @@
 #include "locationwidget.h"
 #include "image.h"
 #include "communeselection.h"
+#include "chartview.h"
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
@@ -33,9 +34,12 @@ private:
     QPushButton * bouttonNormalSize;
     QPushButton * bouttonNegatif;
     QPushButton * bouttonContrast;
+    QPushButton * bouttonStatistique;
     QLabel * labelFichier;
     QLineEdit * editColor;
     QLabel * labelColor;
+    QLabel * labelColor256;
+    QLineEdit * editColor256;
     LocationWidget * locationWidget;
     CommuneSelection * communeSelection;
     QPushButton * bouttonDisplayAll;
@@ -56,6 +60,7 @@ public slots:
     void displayImage(Image *image);
     void negatif();
     void contrast();
+    void stats();
 };
 
 #endif // UNICANALDISPLAY_H

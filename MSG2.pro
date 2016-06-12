@@ -37,7 +37,14 @@ SOURCES += main.cpp\
     controllers/calcul.cpp \
     fbitbuffer.cpp \
     qcustomplot.cpp \
-    views/chartview.cpp
+    views/chartview.cpp \
+    views/rvbdisplay.cpp \
+    views/correlationview.cpp \
+    views/correlationtempview.cpp \
+    views/MyWidgets/selectday.cpp \
+    views/MyWidgets/selectdayinterval.cpp \
+    views/MyWidgets/selectdayennuagement.cpp \
+    views/ennuagementview.cpp
 
 HEADERS  += mainwindow.h \
     io.h \
@@ -65,7 +72,14 @@ HEADERS  += mainwindow.h \
     controllers/calcul.h \
     fbitbuffer.h \
     qcustomplot.h \
-    views/chartview.h
+    views/chartview.h \
+    views/rvbdisplay.h \
+    views/correlationview.h \
+    views/correlationtempview.h \
+    views/MyWidgets/selectday.h \
+    views/MyWidgets/selectdayinterval.h \
+    views/MyWidgets/selectdayennuagement.h \
+    views/ennuagementview.h
 
 FORMS    += mainwindow.ui
 

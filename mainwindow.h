@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "image.h"
+#include "ennuagementview.h"
 
 enum Mode{uni, multi, Table};
 
@@ -30,6 +31,7 @@ private:
 signals:
 
 public slots:
+    void RVBMode();
     void uniCanalMode();
     void uniCanalMode(QString fichier, int offsetX, int offsetY);
     void uniCanalMode(Image * img);
@@ -37,6 +39,8 @@ public slots:
     void multiCanalMode(QString fichier, QString finF, int offsetX, int offsetY);
     void imageTableView();
     void decoupageTableView();
+    void correlationTemp();
+    void ennuagement();
 };
 
 #endif // MAINWINDOW_H

@@ -6,6 +6,7 @@
 #include "image.h"
 #include "canaldisplay.h"
 #include "communeselection.h"
+#include "correlationview.h"
 #include <QWidget>
 #include <QGridLayout>
 #include <QScrollArea>
@@ -34,6 +35,7 @@ private:
     ImagesSelectWidget * selectionWidget;
     CommuneSelection * communeSelection;
     QPushButton * bouttonCompress;
+    QPushButton * bouttonCorrelation;
     QPushButton * bouttonDisplayAll;
     QGridLayout * Glayout;
     QWidget * centralWidget;
@@ -49,6 +51,7 @@ public slots:
     void ChangeCoordinate(int x, int y);
     void decoupeImages(int x1, int y1, int x2, int y2, bool compresse);
     void saveImageCompresse();
+    void matriceCorr();
 };
 
 #endif // MultiCanalDisplay_H

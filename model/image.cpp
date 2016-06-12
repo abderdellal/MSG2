@@ -14,7 +14,7 @@ Image::Image(QString fichier)
     const char * c = s.c_str();
     if(fichier.endsWith(".pgm"))
     {
-    im = IO::getImage(c, height, width);
+        im = IO::getImage(c, height, width);
     }
     else if(fichier.endsWith(".pgmc"))
     {
@@ -43,6 +43,7 @@ Image::Image(unsigned short *data, int dX, int dY, int w, int h)
 
 Image::~Image()
 {
+    if(im)
     delete im;
 }
 

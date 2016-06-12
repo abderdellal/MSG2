@@ -25,15 +25,15 @@ ChartView::ChartView(Image * img, QWidget *parent) :
     {
         int indice = im[i]%1024;
         repets[indice] = repets[indice] + 1;
-        if(maxCouleur < im[i])
+        if(maxCouleur < (im[i]%1024))
         {
-            maxCouleur = im[i];
+            maxCouleur = im[i]%1024;
         }
-        if(minCouleur > im[i])
+        if(minCouleur > (im[i]%1024))
         {
-            minCouleur = im[i];
+            minCouleur = (im[i]%1024);
         }
-        somme = somme + im[i];
+        somme = somme + (im[i]%1024);
     }
 
     double moy = (double) somme / (width*height);
@@ -43,7 +43,7 @@ ChartView::ChartView(Image * img, QWidget *parent) :
     double sommeVar;
     for(int i = 0; i < width*height ; i++)
     {
-        double diff = im[i] - moy;
+        double diff = (im[i]%1024) - moy;
         double diffSquare = pow(diff, 2);
         sommeVar = sommeVar + diffSquare;
     }

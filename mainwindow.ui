@@ -25,26 +25,29 @@
    </property>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
-     <string>Manipulation de base</string>
+     <string>Analyse spectrale</string>
     </property>
     <addaction name="actionUni_canal"/>
     <addaction name="actionMulticanal"/>
+    <addaction name="actionAffichage_RVB"/>
    </widget>
    <widget class="QMenu" name="menuBase_d_image">
     <property name="title">
-     <string>Base d'image</string>
+     <string>Base d'images</string>
     </property>
     <addaction name="actionImages_enregistr_s"/>
     <addaction name="actionDecoupage_enregistr_s"/>
    </widget>
-   <widget class="QMenu" name="menuTraitement_statistique">
+   <widget class="QMenu" name="menuAnnalyse_temporelle">
     <property name="title">
-     <string>Traitement statistique</string>
+     <string>Analyse temporelle</string>
     </property>
+    <addaction name="actionEnnuagement"/>
+    <addaction name="actionCorrelation"/>
    </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuBase_d_image"/>
-   <addaction name="menuTraitement_statistique"/>
+   <addaction name="menuAnnalyse_temporelle"/>
   </widget>
   <action name="actionUni_canal">
    <property name="text">
@@ -64,6 +67,21 @@
   <action name="actionDecoupage_enregistr_s">
    <property name="text">
     <string>Decoupage enregistrés</string>
+   </property>
+  </action>
+  <action name="actionAffichage_RVB">
+   <property name="text">
+    <string>Affichage RVB</string>
+   </property>
+  </action>
+  <action name="actionEnnuagement">
+   <property name="text">
+    <string>Ennuagement</string>
+   </property>
+  </action>
+  <action name="actionCorrelation">
+   <property name="text">
+    <string>Correlation temprelle</string>
    </property>
   </action>
  </widget>

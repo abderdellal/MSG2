@@ -4,6 +4,8 @@
 #include "unicanaldisplay.h"
 #include "dbimagesview.h"
 #include "dbdecoupageview.h"
+#include "rvbdisplay.h"
+#include "correlationtempview.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,9 +19,12 @@ MainWindow::MainWindow(QWidget *parent) :
     layout->setMargin(0);
     ui->centralWidget->setLayout(layout);
     QObject::connect(ui->actionUni_canal, SIGNAL(triggered()), this, SLOT(uniCanalMode()));
+    QObject::connect(ui->actionAffichage_RVB, SIGNAL(triggered()), this, SLOT(RVBMode()));
     QObject::connect(ui->actionMulticanal, SIGNAL(triggered()), this, SLOT(multiCanalMode()));
     QObject::connect(ui->actionImages_enregistr_s, SIGNAL(triggered()), this, SLOT(imageTableView()));
     QObject::connect(ui->actionDecoupage_enregistr_s, SIGNAL(triggered()), this, SLOT(decoupageTableView()));
+    QObject::connect(ui->actionCorrelation, SIGNAL(triggered()), this, SLOT(correlationTemp()));
+    QObject::connect(ui->actionEnnuagement, SIGNAL(triggered()), this, SLOT(ennuagement()));
 }
 
 MainWindow::~MainWindow()
@@ -53,6 +58,13 @@ void MainWindow::uniCanalMode()
     clearCentralWidget();
     UniCanalDisplay * uniCanal = new UniCanalDisplay();
     layout->addWidget(uniCanal);
+}
+
+void MainWindow::RVBMode()
+{
+    clearCentralWidget();
+    RVBDisplay * rvbDisplay = new RVBDisplay();
+    layout->addWidget(rvbDisplay);
 }
 
 void MainWindow::uniCanalMode(QString fichier, int offsetX, int offsetY)
@@ -100,4 +112,18 @@ void MainWindow::clearCentralWidget()
             delete item->widget();
             delete item;
         }
+}
+
+void MainWindow::correlationTemp()
+{
+    clearCentralWidget();
+    CorrelationTempView * corrView = new CorrelationTempView();
+    layout->addWidget(corrView);
+}
+
+void MainWindow::ennuagement()
+{
+    clearCentralWidget();
+    EnnuagementView * ennuView    = new EnnuagementView();
+    layout->addWidget(ennuView);
 }

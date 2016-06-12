@@ -59,12 +59,13 @@ void UniCanalDisplay::prepareInterface()
     QIcon iconeNegatif("negatif.png");
     QIcon iconeNormalSize("normalSize.png");
     QIcon iconeContrast("contrast.png");
+    QIcon iconeStats("stats.png");
     bouttonZoumIn = new QPushButton(iconeZoumIn,"Zoum In");
     bouttonZoumOut = new QPushButton(iconeZoumOut, "Zoum Out");
     bouttonNormalSize = new QPushButton(iconeNormalSize,"Normal Size");
     bouttonNegatif = new QPushButton(iconeNegatif ,"negatif");
     bouttonContrast = new QPushButton(iconeContrast, "Contrast statique");
-    bouttonStatistique = new QPushButton("statistique");
+    bouttonStatistique = new QPushButton(iconeStats, "statistique");
     bouttonZoumIn->setVisible(false);
     bouttonZoumOut->setVisible(false);
     bouttonNormalSize->setVisible(false);
@@ -80,7 +81,7 @@ void UniCanalDisplay::prepareInterface()
     locationWidget = new LocationWidget();
     communeSelection = new CommuneSelection();
     QIcon iconeAlgerie("algeria.png");
-    bouttonDisplayAll = new QPushButton(iconeAlgerie, "toutes Selectionner");
+    bouttonDisplayAll = new QPushButton(iconeAlgerie, "tout Selectionner");
     bouttonDisplayAll->setVisible(false);
 
     Hlayout->addWidget(bouttonOuvrir);

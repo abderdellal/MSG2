@@ -28,6 +28,7 @@ private:
     QLabel * labelSupprimer;
     QPushButton * bouttonSupprimer;
     QPushButton * bouttonNDVI;
+
     
 signals:
     void decoupageSelected(QString fichier, QString finF, int offsetX, int OffsetY);

@@ -27,8 +27,11 @@ MultiCanalDisplay::MultiCanalDisplay(QWidget *parent) :
     bouttonCompress->setVisible(false);
     QIcon iconeAlgerie("algeria.png");
     bouttonDisplayAll = new QPushButton(iconeAlgerie, "Afficher toutes les communes");
+    bouttonCorrelation = new QPushButton("Correlation");
+    bouttonCorrelation->setVisible(false);
     Hlayout->addWidget(selectionWidget);
     Hlayout->addWidget(bouttonCompress);
+    Hlayout->addWidget(bouttonCorrelation);
     Hlayout2->addWidget(locationWidget);
     Hlayout2->addWidget(communeSelection);
     Hlayout2->addWidget(bouttonDisplayAll);
@@ -49,6 +52,7 @@ MultiCanalDisplay::MultiCanalDisplay(QWidget *parent) :
 
     QObject::connect(selectionWidget, SIGNAL(folderSelected(QString,QString)), this, SLOT(selectFolder(QString,QString)));
     QObject::connect(bouttonCompress, SIGNAL(clicked()), this, SLOT(saveImageCompresse()));
+    QObject::connect(bouttonCorrelation, SIGNAL(clicked()), this, SLOT(matriceCorr()));
 }
 
 void MultiCanalDisplay::selectFolder(QString folder, QString finFichier)
@@ -90,6 +94,7 @@ void MultiCanalDisplay::afficherImage()
         j++;
     }
     bouttonCompress->setVisible(true);
+    bouttonCorrelation->setVisible(true);
 }
 void MultiCanalDisplay::ChangeCoordinate(int x, int y)
 {
@@ -219,4 +224,10 @@ void MultiCanalDisplay::saveImageCompresse()
         filePath.append(".pgmc");
         img->saveCompress(filePath);
     }
+}
+
+void MultiCanalDisplay::matriceCorr()
+{
+    CorrelationView * correlationView = new CorrelationView(imagesMap);
+    correlationView->show();
 }
